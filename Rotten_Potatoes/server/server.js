@@ -10,7 +10,7 @@ app.use(cookeParser());
 app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 
 require("./routes/user.routes")(app);
-require("./rotes/movie.routes")(app);
+require("./rotes/movie_watchlist.routes")(app);
 require("./config/mongoose.config");
 require("./config/jwt.config");
 
