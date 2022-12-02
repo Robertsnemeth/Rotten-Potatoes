@@ -47,6 +47,16 @@ module.exports.findSingleUser = (req, res) => {
         .catch(err => {res.json({message: "Something went wrong", error: err})})
 };
 
+module.exports.updateUser = (req, res) => {
+    User.findOneAndUpdate(
+        {_id: req.params.id},
+        req.body,
+        {new: true, runValidators: true}
+    )
+    .then(updatedUser => {res.json({user: updatedUser})})
+    .catch(err => {res.status(400).json({message:"Something went wrong", error: err})})
+};
+
 module.exports.deleteUser = (req, res) => {
     User.deleteOne({_id: req.params.id})
         .then(deletedUser => res.json(deletedUser))
