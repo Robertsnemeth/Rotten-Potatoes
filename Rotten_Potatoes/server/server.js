@@ -6,11 +6,11 @@ const PORT = parseInt(process.env.SERVER_PORT);
 const cookieParser = require('cookie-parser');
 
 app.use(express.json(), express.urlencoded({extensions: true}));
-app.use(cookeParser());
+app.use(cookieParser());
 app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 
 require("./routes/user.routes")(app);
-require("./rotes/movie_watchlist.routes")(app);
+require("./routes/movie_watchlist.routes")(app);
 require("./config/mongoose.config");
 require("./config/jwt.config");
 

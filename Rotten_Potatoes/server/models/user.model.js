@@ -37,8 +37,8 @@ const UserSchema = new mongoose.Schema( {
     }
 }, {timestamps:true});
 
-UserSchema.plugin(uniqueValidator, {type: userName, message: "This username is already taken"});
-UserSchema.plugin(uniqueValidator, {type: email, message: "This email is already taken"});
+UserSchema.plugin(uniqueValidator, { message: "This username is already taken"});
+UserSchema.plugin(uniqueValidator, { message: "This email is already taken"});
 
 
 UserSchema.virtual('confirmPassword')
