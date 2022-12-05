@@ -15,7 +15,7 @@ const MovieWatchlistSchema = new mongoose.Schema({
 }, {timestamps: true});
 
 const UserSchema = new mongoose.Schema( {
-    userName: {
+    username: {
         type: String,
         required: [true, "Username is required"],
         minLenght: [2, "Username must be at least 2 characters long"],

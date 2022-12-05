@@ -1,15 +1,21 @@
-import { useState } from 'react'
-import NavBar from './components/NavBar'
-import HomePage from './views/HomePage'
+import { useState } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import NavBar from './components/NavBar';
+import RegistrationForm from './components/RegistrationForm';
+import HomePage from './views/HomePage';
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <div className="">
-        <h1>Hello world</h1>
+      <BrowserRouter>
         <NavBar/>
-        <HomePage/>
+          <Routes>
+            <Route element={<Navigate to="/rotten_potatoes/home_page"/>} path="/"/>
+            <Route element={<HomePage/>} path="/rotten_potatoes/home_page"/>
+            <Route element={<RegistrationForm/>} path="/rotten_potatoes/registration"/>
+          </Routes>
+      </BrowserRouter>
     </div>
   )
 }
