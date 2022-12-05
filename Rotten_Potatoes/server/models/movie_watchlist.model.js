@@ -5,9 +5,9 @@ const MovieWatchlistSchema = new mongoose.Schema({
         type: String,
         required: [true, "Tile is required"]
     },
-    movies: {
-        type: []
-    }
+    movies: [
+        String
+    ]
 }, {timestamps: true});
 
-module.exports = mongoose.model("Movie Watchlist", MovieWatchlistSchema);
+module.exports = mongoose.model("MovieWatchlist", MovieWatchlistSchema);
