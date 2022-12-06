@@ -1,14 +1,26 @@
-require('dotenv').config();
 const jwt = require('jsonwebtoken');
+const asyncHandler = require("express-async-handler");
+const User = require("../models/user.model");
 const secret = process.env.SECRET_KEY;
 
-module.exports.secret = secret;
-module.exports.authenticate = (req, res, next) => {
-    jwt.verify(req.cookies.usertoken, secret, (err, payload) => {
-        if(err) {
-            res.status(401).json({verified: false, message:"auth error"});
-        } else {
-            next();
+const protect = asyncHandler(async(req, res, next) => {
+    let token
+    if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+        try {
+            token = req.headers.authorization.split(' ')[1]
+            const decoded = jwt.verify(token, secret)
+            req.user = await User.findById(decoded.id).select('-password')
+            next()
+        } catch (error) {
+            console.log(error)
+            res.status(401)
+            throw new Error("Not Authorized")
         }
-    })
-};
+    }
+    if(!token) {
+        res.status(401)
+        throw new Error("Not Authorized, no token")
+    }
+});
+
+module.exports  = { protect };

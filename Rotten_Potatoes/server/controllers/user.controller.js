@@ -1,7 +1,7 @@
 const User = require('../models/user.model');
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
-const { secret } = require('../config/jwt.config');
+const secret  = process.env.SECRET_KEY;
 const bcrypt = require('bcrypt');
 
 module.exports.createUser = (req, res) => {
@@ -10,7 +10,7 @@ module.exports.createUser = (req, res) => {
             const userToken = jwt.sign({
                 id: newUser._id
             }, secret)
-            res.cookie("usertoken", userToken, {httpOnly: true}).json({ msg: "success!", user: newUser})
+            res.cookie("usertoken", userToken, {httpOnly: true}).json({ msg: "success!", user: newUser, token: userToken})
         })
         .catch(err => {res.status(400).json({mesage: "Something went wrong", error: err})});
 };
@@ -27,7 +27,7 @@ module.exports.loginUser = async(req, res) => {
     const userToken = jwt.sign({
         id: user._id
     }, secret);
-    res.cookie("usertoken", userToken, {httpOnly: true}).json({ msg: "success", user})
+    res.cookie("usertoken", userToken, {httpOnly: true}).json({ msg: "success", user, token: userToken})
 };
 
 module.exports.logoutUser = (req, res) => {
@@ -42,8 +42,9 @@ module.exports.findAllUsers = (req, res) => {
 };
 
 module.exports.findSingleUser = (req, res) => {
-    User.findOne({_id: req.params.id})
-        .then(singleUser => {res.json({user: singleUser})})
+    // const user = jwt.verify(req.cookies.usertoken, secret)
+    User.findById(req.user.id)
+        .then(singleUser => {res.status(200).json({user: singleUser})})
         .catch(err => {res.json({message: "Something went wrong", error: err})})
 };
 

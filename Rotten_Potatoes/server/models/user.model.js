@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const uniqueValidator = require('mongoose-unique-validator');
 const bcrypt = require('bcrypt');
 const validator = require('validator');
-const MovieWatchlist = require('./movie_watchlist.model');
 const { isEmail } = validator;
 
 const MovieWatchlistSchema = new mongoose.Schema({
@@ -15,13 +14,12 @@ const MovieWatchlistSchema = new mongoose.Schema({
 }, {timestamps: true});
 
 const UserSchema = new mongoose.Schema( {
-    username: {
+    userName: {
         type: String,
         required: [true, "Username is required"],
-        minLenght: [2, "Username must be at least 2 characters long"],
+        minLength: [2, "Username must be at least 2 characters long"],
         unique: true,
         uniqueCaseInsensitive: [true]
-
     },
     firstName: {
         type: String,
@@ -48,9 +46,7 @@ const UserSchema = new mongoose.Schema( {
     }
 }, {timestamps:true});
 
-UserSchema.plugin(uniqueValidator, { message: "This username is already taken"});
 UserSchema.plugin(uniqueValidator, { message: "This email is already taken"});
-
 
 UserSchema.virtual('confirmPassword')
     .get(() => this._confirmPassword )

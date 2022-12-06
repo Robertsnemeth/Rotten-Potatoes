@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const RegistrationForm = () => {
 
-    const [ username, setUsername ] = useState("");
+    const [ userName, setUserName ] = useState("");
     const [ firstName, setFirstName ] = useState("");
     const [ lastName, setLastName ] = useState("");
     const [ email, setEmail ] = useState("");
@@ -16,8 +16,8 @@ const RegistrationForm = () => {
 
     const navigate = useNavigate();
 
-    const handleUsername = (e) => {
-        setUsername(e.target.value)
+    const handleUserName = (e) => {
+        setUserName(e.target.value)
     };
     const handleFirstName = (e) => {
         setFirstName(e.target.value)
@@ -37,7 +37,8 @@ const RegistrationForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:8000/api/user', {
+        axios.post('http://localhost:8000/api/rotten_potatoes/user', {
+            userName,
             firstName,
             lastName,
             email,
@@ -46,7 +47,7 @@ const RegistrationForm = () => {
         .then(res =>
             {console.log(res);
             setDataChange(Math.random());
-            navigate("/pet/all")
+            navigate("/rotten_potatoes/user")
         })
         .catch(err => {
             console.log(err);
@@ -63,9 +64,9 @@ const RegistrationForm = () => {
             <div className='flex'>
                 <section className='m-4'>
                 <div className="flex flex-col gap-2">
-                    {formErrors.username && <p className="text-center text-red-500">{formErrors.firstName.message}</p>}
+                    {formErrors.userName && <p className="text-center text-red-500">{formErrors.userName.message}</p>}
                         <label htmlFor="username">Username: </label>
-                        <input className="border border-black rounded w-[400px]" type="text" onChange={handleUsername} value={username}/>
+                        <input className="border border-black rounded w-[400px]" type="text" onChange={handleUserName} value={userName}/>
                     </div>
                     <div className="flex flex-col gap-2">
                     {formErrors.firstName && <p className="text-center text-red-500">{formErrors.firstName.message}</p>}
@@ -94,7 +95,7 @@ const RegistrationForm = () => {
                     </div>
                 </section>
             </div>
-                <button className="border border-black rounded p-2 m-2 bg-red-500 hover:bg-blue-400 text-white">Register</button>
+                <button className="border border-black rounded p-2 m-2 bg-red-500 hover:bg-red-400 text-white">Register</button>
         </form>
     </div>
     </div>

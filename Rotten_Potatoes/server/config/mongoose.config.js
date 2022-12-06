@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
+require('dotenv').config();
+const DB = process.env.MONGODB;
 
-mongoose.connect("mongodb://localhost/rotten_potatoes",
+mongoose.connect(`mongodb://localhost/${DB}`,
 {
     useNewUrlParser: true,
     useUnifiedTopology: true
