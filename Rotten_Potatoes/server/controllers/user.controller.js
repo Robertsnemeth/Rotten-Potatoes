@@ -42,7 +42,6 @@ module.exports.findAllUsers = (req, res) => {
 };
 
 module.exports.findSingleUser = (req, res) => {
-    // const user = jwt.verify(req.cookies.usertoken, secret)
     User.findById(req.user.id)
         .then(singleUser => {res.status(200).json({user: singleUser})})
         .catch(err => {res.json({message: "Something went wrong", error: err})})

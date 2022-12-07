@@ -7,6 +7,7 @@ const LoginForm = () => {
     const [ password, setPassword ] = useState("");
     const [ formErrors, setFormErrors ] = useState({})
     const [ dataChange, setDataChange ] = useState("");
+    const [ accessToken, setAccessToken ] = useState(localStorage.getItem('accessToken'));
 
     const navigate = useNavigate();
 
@@ -25,6 +26,7 @@ const LoginForm = () => {
         .then(res =>
             {console.log(res);
             setDataChange(Math.random());
+            setAccessToken(localStorage.setItem('accessToken', res.data.token));
             navigate("/rotten_potatoes/user")
         })
         .catch(err => {
