@@ -38,7 +38,8 @@ const NavBar = ({
           </form>
           {accessToken ? 
           <div className='flex gap-4'>
-            <Link to="/rotten_potatoes/user" className="hover:text-gray-200">My Watchlists</Link>
+            <Link to="/rotten_potatoes/user/account" className="hover:text-gray-200">My Account</Link>
+            <Link to="/rotten_potatoes/user/watchlist" className="hover:text-gray-200">My Watchlists</Link>
             <button onClick={handleLogout} className="hover:text-gray-200">Logout</button> 
           </div> :
           <Link to="/rotten_potatoes/login">Sign In</Link>

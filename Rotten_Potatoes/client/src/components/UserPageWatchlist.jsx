@@ -2,7 +2,7 @@ import { useState, useEffect} from 'react';
 import axios from 'axios';
 const USER_URL = "http://localhost:8000/api/rotten_potatoes/user/"
 
-const UserPage = () => {
+const UserPageWatchlist = () => {
 
     const [ user, setUser ] = useState({});
     const [ accessToken, setAccessToken ] = useState(localStorage.getItem('accessToken'));
@@ -24,14 +24,17 @@ const UserPage = () => {
         e.preventDefault();
         console.log(userId, "user id");
         axios.put(`${USER_URL}${userId}`,{
-            watchlists:{
+            watchlists: {
+                ...title, 
                 title: watchlistTitle
-            }
+                
+        }  
         })
         .then(res => {
             console.log(res, "Watchlist Added");
             setDataChange(Math.random());
             setFormVisable(!formVisable);
+            setWatchlistTitle("");
         })
             .catch(err => console.log(err));
         }; 
@@ -99,4 +102,4 @@ const UserPage = () => {
   )
 }
 
-export default UserPage
+export default UserPageWatchlist

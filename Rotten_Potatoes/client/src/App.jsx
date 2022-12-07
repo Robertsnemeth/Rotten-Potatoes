@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import LoginForm from './components/LoginForm';
 import NavBar from './components/NavBar';
 import RegistrationForm from './components/RegistrationForm';
-import UserPage from './components/UserPage';
+import UserPageWatchlist from './components/UserPageWatchlist';
 import HomePage from './views/HomePage';
 
 function App() {
@@ -27,7 +27,7 @@ function App() {
             path="/rotten_potatoes/home_page"/>
             <Route element={<LoginForm/>} path="/rotten_potatoes/login"/>
             <Route element={<RegistrationForm/>} path="/rotten_potatoes/registration"/>
-            <Route element={<UserPage/>} path="/rotten_potatoes/user"/>
+            <Route element={<UserPageWatchlist/>} path="/rotten_potatoes/user/watchlist"/>
           </Routes>
       </BrowserRouter>
     </div>
