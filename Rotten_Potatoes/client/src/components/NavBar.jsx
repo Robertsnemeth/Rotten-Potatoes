@@ -26,6 +26,7 @@ const NavBar = ({
     localStorage.removeItem('accessToken');
     localStorage.removeItem('userId');
     navigate("/")
+    window.location.reload(false);
   }
 
   return (

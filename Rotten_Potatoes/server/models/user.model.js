@@ -4,14 +4,14 @@ const bcrypt = require('bcrypt');
 const validator = require('validator');
 const { isEmail } = validator;
 
-const MovieWatchlistSchema = new mongoose.Schema({
-    title: {
-        type: String,
-        required: [true, "Title is required"],
-        minLength: [ 2, "Title must be at least 2 characters long"]
-    },
-    movies: [String]
-}, {timestamps: true});
+// const MovieWatchlistSchema = new mongoose.Schema({
+//     title: {
+//         type: String,
+//         required: [true, "Title is required"],
+//         minLength: [ 2, "Title must be at least 2 characters long"]
+//     },
+//     movies: [String]
+// }, {timestamps: true});
 
 const UserSchema = new mongoose.Schema( {
     userName: {
@@ -38,7 +38,21 @@ const UserSchema = new mongoose.Schema( {
         unique: true,
         uniqueCaseInsensitive: [true]
     },
-    watchlists: [MovieWatchlistSchema],
+    watchlists: [{
+            title: {
+            type: String,
+            required: [true, "Title is required"],
+            minLength: [ 2, "Title must be at least 2 characters long"]
+        },
+        movies: [{
+            title: {
+                type: String
+            },
+            poster: {
+                type: String
+            }
+        }]}
+    ],
     password: {
         type: String,
         required: [true, "Password is required"],

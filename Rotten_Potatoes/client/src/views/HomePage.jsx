@@ -13,18 +13,32 @@ const HomePage = ({
 }) => {
 
   const [ watchlist, setWatchlist ] = useState([]);
-
-  const userId = localStorage.getItem('user_id');
+  const [ watchlistIndex, setWatchlistIndex ] = useState();
+  const [ watchlistMovieTitle, setWatchlistMovieTitle ] = useState("");
+  const [ watchlistMoviePoster, setWatchlistMoviePoster ] = useState("");
+ 
+  const userId = localStorage.getItem('userId');
   const accessToken = localStorage.getItem('accessToken');
 
-  const handleAddMovie = (index, movie) => {
+  const handleIndex = (e) => {
+    setWatchlistIndex(e.target.value);
+  };
+
+  const handleAddMovie = (index, title, poster) => {
+    setWatchlistMovieTitle(title);
+    setWatchlistMoviePoster(poster);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
     axios.put(`${USER_URL}${userId}`,{
-      watchlists,[index]:{
-        movies: movie
-      }
+      watchlists:[...watchlistAtThisIndex,{movies:[...watchlistMovies, {title, poster}]}]
     })
       .then(res => console.log(res))
       .catch(err => console.log(err))
+      setWatchlistIndex();
+      setWatchlistMovieTitle("");
+      setWatchlistMoviePoster("");
   }; 
 
   useEffect(() => {
@@ -50,18 +64,32 @@ const HomePage = ({
   }, [movieTitle]);
 
   return (
-    <div className="grid grid-cols-5 m-4">{movies.map((movie, index) => {
+    <div className="grid grid-cols-5 m-4">{movies && movies.map((movie, index) => {
       return (
         <div key={index} className="m-2">
           { movie.Poster === "N/A" ?
           <div>
-              <img src={notFound} alt="movie poster, not found" className="h-[400px] w-[270px] cursor-pointer hover:scale-105 rounded" onClick=""/>
+              <img src={notFound} alt="movie poster, not found" className="h-[400px] w-[270px] cursor-pointer rounded" onClick=""/>
               <AiOutlinePlus size="30px" className="absolute right-[50px] top-2 bg-white rounded opacity-50 z-10 cursor-pointer hover:opacity-90" onClick={() => {handleAddMovie()}}/>
           </div>
             :
             <div className='relative'>
-              <AiOutlinePlus size="30px" className="absolute right-[50px] top-2 bg-white rounded opacity-50 z-10 cursor-pointer hover:opacity-90" onClick={() => {handleAddMovie()}}/>
-              <img src={movie.Poster} alt="movie poster" className="h-[400px] w-[270px] cursor-pointer hover:scale-105 rounded" onClick=""/>
+              <div>
+                <form onSubmit={handleSubmit}>
+                      <form action="">
+                        <label htmlFor="watchlist">Select Watchlist:</label>
+                        <select id="watchlist">
+                        {watchlist.map((list, index) => {
+                          return(
+                            <option onChange={handleIndex} value={index}>{list.title}</option>
+                            )
+                        })}
+                        </select>
+                      </form>
+                </form>
+              </div>
+              <AiOutlinePlus size="30px" className="absolute right-[50px] top-[30px] bg-white rounded opacity-50 z-10 cursor-pointer hover:opacity-90" onClick={handleAddMovie}/>
+              <img src={movie.Poster} alt="movie poster" className="h-[400px] w-[270px] cursor-pointer hover:shadow-lg rounded" onClick=""/>
             </div>
           }
         </div>

@@ -25,9 +25,9 @@ const LoginForm = () => {
             password,})
         .then(res =>
             {console.log(res);
-            setDataChange(Math.random());
             setAccessToken(localStorage.setItem('accessToken', res.data.token));
-            navigate("/rotten_potatoes/user")
+            navigate("/rotten_potatoes/user/watchlist");
+            window.location.reload(false);
         })
         .catch(err => {
             console.log(err);

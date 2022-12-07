@@ -22,24 +22,21 @@ const UserPageWatchlist = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(userId, "user id");
+        console.log(watchlist)
         axios.put(`${USER_URL}${userId}`,{
-            watchlists: {
-                ...title, 
-                title: watchlistTitle
-                
-        }  
+            watchlists:[...watchlist, {title:watchlistTitle}]
         })
         .then(res => {
             console.log(res, "Watchlist Added");
             setDataChange(Math.random());
             setFormVisable(!formVisable);
-            setWatchlistTitle("");
         })
             .catch(err => console.log(err));
+            setWatchlistTitle("")
         }; 
 
     useEffect(() => {
+        console.log(watchlist, "watchlist")
         axios.get(
             "http://localhost:8000/api/rotten_potatoes/current_user", 
             {headers:
@@ -80,7 +77,7 @@ const UserPageWatchlist = () => {
                     </form>
                 </div>}
                 <div className='flex flex-col gap-4 m-4'>
-                    {watchlist.map((list, index) => {
+                    {watchlist && watchlist.map((list, index) => {
                         return (
                             <div key={index} className='border flex flex-col gap-4 w-[1000px]'>
                                 <h1 className="uppercase text-2xl font-bold">{list.title}</h1>
