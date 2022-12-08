@@ -5,6 +5,7 @@ import NavBar from './components/NavBar';
 import RegistrationForm from './components/RegistrationForm';
 import UserPageWatchlist from './components/UserPageWatchlist';
 import HomePage from './views/HomePage';
+import UserPageAccount from './views/UserPageAccount';
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
             <Route element={<LoginForm/>} path="/rotten_potatoes/login"/>
             <Route element={<RegistrationForm/>} path="/rotten_potatoes/registration"/>
             <Route element={<UserPageWatchlist/>} path="/rotten_potatoes/user/watchlist"/>
+            <Route element={<UserPageAccount/>} path="/rotten_potatoes/user/account"/>
           </Routes>
       </BrowserRouter>
     </div>
