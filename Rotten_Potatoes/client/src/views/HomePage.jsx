@@ -74,7 +74,8 @@ const HomePage = ({
   }, [movieTitle]);
 
   return (
-    <div className="grid grid-cols-5 m-4">{movies && movies.map((movie, index) => {
+    <>
+    {movies ? <div className="grid grid-cols-5 m-4">{movies.map((movie, index) => {
       return (
         <div key={index} className="m-2">
           { movie.Poster === "N/A" ?
@@ -103,9 +104,13 @@ const HomePage = ({
             </div>
           }
         </div>
-      )
-    })}</div>
-  )
+        )
+      })}</div> :
+      <div className="flex flex-col gap-4">
+        <h1 className="text-3xl font-bold">0 results</h1>
+        <img src={notFound} alt="" />
+      </div>
+    }</>)
 }
 
 export default HomePage
