@@ -16,6 +16,9 @@ const HomePage = ({
   const [ watchlistIndex, setWatchlistIndex ] = useState("");
   const [ watchlistMovieTitle, setWatchlistMovieTitle ] = useState("");
   const [ watchlistMoviePoster, setWatchlistMoviePoster ] = useState("");
+  const [ watchlistMovieId, setWatchlistMovieId ] = useState("");
+  const [ isLoading, setIsLoading ] = useState(false);
+  const [ addIsClicked, setAddIsClicked ] = useState(false);
  
   const userId = localStorage.getItem('userId');
   const accessToken = localStorage.getItem('accessToken');
@@ -25,10 +28,12 @@ const HomePage = ({
     setWatchlistIndex(e.target.value);
   };
 
-  const handleAddMovie = ( title, poster) => {
+  const handleAddMovie = ( title, poster, id) => {
     console.log("title", title, "poster", poster)
     setWatchlistMovieTitle(title);
     setWatchlistMoviePoster(poster);
+    setWatchlistMovieId(id)
+    setAddIsClicked(!addIsClicked);
   };
 
   const handleSubmit = (e) => {
@@ -54,7 +59,7 @@ const HomePage = ({
   useEffect(() => {
 
     axios.get(`${API_URL}&s=${movieTitle}`)
-      .then(res => {console.log(res), setMovies(res.data.Search)})
+      .then(res => {console.log(res, "movie api"), setMovies(res.data.Search)})
       .catch(err => console.log(err));
 
       axios.get(
@@ -65,8 +70,9 @@ const HomePage = ({
         {withCredentials: true}
     )
         .then((res) => {
-            console.log(res);
+            console.log(res, "user data");
             setWatchlists(res.data.user.watchlists);
+            setIsLoading(false);
             console.log(watchlists, "watchlist")
         })
         .catch(err => console.log(err))
@@ -74,19 +80,24 @@ const HomePage = ({
   }, [movieTitle]);
 
   return (
-    <>
+    <div>
+      {isLoading ?
+      <div>
+        <h1>Loading...</h1>
+      </div> :
+    <div>
     {movies ? <div className="grid grid-cols-5 m-4">{movies.map((movie, index) => {
       return (
         <div key={index} className="m-2">
           { movie.Poster === "N/A" ?
           <div>
               <img src={notFound} alt="movie poster, not found" className="h-[400px] w-[270px] cursor-pointer rounded"/>
-              <AiOutlinePlus size="30px" className="absolute right-[50px] top-2 bg-white rounded opacity-50 z-10 cursor-pointer hover:opacity-90" onClick={() => {handleAddMovie(movie.Title, movie.Poster)}}/>
+              <AiOutlinePlus size="30px" className="absolute right-[50px] top-2 bg-white rounded opacity-50 z-10 cursor-pointer hover:opacity-90" onClick={() => {handleAddMovie(movie.Title, movie.Poster, movie.imdbID)}}/>
           </div>
             :
             <div className='relative'>
               <div className="flex">
-                <form onSubmit={handleSubmit}>
+                {addIsClicked && movie.imdbID === watchlistMovieId && <form onSubmit={handleSubmit}>
                         <label htmlFor="watchlist" >Select Watchlist:</label>
                         <select id="watchlist" onChange={handleIndex}>
                           <option>--</option>
@@ -97,9 +108,9 @@ const HomePage = ({
                         })}
                         </select>
                         <button>Add</button>
-                </form>
+                </form>}
               </div>
-              <AiOutlinePlus size="30px" className="absolute right-[50px] top-[30px] bg-white rounded opacity-50 z-10 cursor-pointer hover:opacity-90" onClick={() => {handleAddMovie(movie.Title, movie.Poster)}}/>
+              <AiOutlinePlus size="30px" className="absolute right-[50px] top-[30px] bg-white rounded opacity-50 z-10 cursor-pointer hover:opacity-90" onClick={() => {handleAddMovie(movie.Title, movie.Poster, movie.imdbID)}}/>
               <img src={movie.Poster} alt="movie poster" className="h-[400px] w-[270px] cursor-pointer hover:shadow-lg rounded"/>
             </div>
           }
@@ -110,7 +121,12 @@ const HomePage = ({
         <h1 className="text-3xl font-bold">0 results</h1>
         <img src={notFound} alt="" />
       </div>
-    }</>)
+    }
+    </div>}
+
+    </div>
+    
+    )
 }
 
 export default HomePage

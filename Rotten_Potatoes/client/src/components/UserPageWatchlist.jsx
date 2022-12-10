@@ -1,5 +1,6 @@
 import { useState, useEffect} from 'react';
 import axios from 'axios';
+import Watchlist from './Watchlist';
 const USER_URL = "http://localhost:8000/api/rotten_potatoes/user/"
 
 const UserPageWatchlist = () => {
@@ -45,7 +46,7 @@ const UserPageWatchlist = () => {
             {withCredentials: true}
         )
             .then((res) => {
-                // console.log(res);
+                console.log(res);
                 setUser(res.data.user);
                 localStorage.setItem('userId', res.data.user._id);
                 setUserId(res.data.user._id)
@@ -77,23 +78,7 @@ const UserPageWatchlist = () => {
                     </form>
                 </div>}
                 <div className='flex flex-col gap-4 m-4'>
-                    {watchlist && watchlist.map((list, index) => {
-                        return (
-                            <div key={index} className='border flex flex-col gap-4 w-[1000px] p-5'>
-                                <h1 className="uppercase text-2xl font-bold">{list.title}</h1>
-                                <div className='flex gap-4'>
-                                    {list.movies.map((movie, index) => {
-                                        return (
-                                            <div className='flex flex-col gap-1 text-center'>
-                                                <img src={movie.poster} alt="movie poster" className="h-[400px] w-[270px] hover:shadow-lg rounded" />
-                                                <h1>{movie.title}</h1>
-                                            </div>
-                                        )
-                                    })}
-                                </div>
-                            </div>
-                        )
-                    })}
+                    {watchlist && <Watchlist watchlist={watchlist}/>}
                 </div>
             </div> :
             <h1>Not authorized</h1>

@@ -39,9 +39,15 @@ const UserPageAccount = () => {
             lastName,
             email
             })
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
-            navigate("/");
+            .then(res => {
+                console.log(res);
+                navigate("/");
+            })
+            .catch(err => {
+                console.log(err);
+                const errRes = err.response.data.error.errors
+                setFormErrors(errRes);
+            })
         }; 
 
     useEffect(() => {
