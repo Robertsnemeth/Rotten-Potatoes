@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link} from 'react-router-dom';
 import { BiSearch } from 'react-icons/bi';
+
 import axios from 'axios';
 
 const NavBar = ({
@@ -51,14 +52,14 @@ const NavBar = ({
         <Link to="/" className="text-[2.5rem]">Rotten Potatoes</Link>
           <form onSubmit={handleSubmit} className="flex items-center gap-2">
             <label htmlFor="search" className="text-2xl">Search Movies: </label>
-            <input id="search" className="border rounded text-black w-96 p-1" type="text" onChange={handleTitle} value={title} />
+            <input id="search" className="border rounded text-white w-96 p-1 bg-red-800" type="text" onChange={handleTitle} value={title} placeholder="Search movies..." />
             <button><BiSearch size="25"/></button>
           </form>
           {accessToken ? 
-          <div className='flex gap-6'>
-            <Link to="/rotten_potatoes/user/account" className="hover:text-gray-200 hover:border hover:border-gray-200 hover:rounded p-1">{user.userName}</Link>
-            <Link to="/rotten_potatoes/user/watchlist" className="hover:text-gray-200 hover:border hover:border-gray-200 hover:rounded p-1">My Watchlists</Link>
-            <button onClick={handleLogout} className="hover:text-gray-200 hover:border hover:border-gray-200 hover:rounded p-1">Logout</button> 
+          <div className='flex gap-6 text-'>
+            <Link to="/rotten_potatoes/user/account" className="hover:text-gray-200 hover:border hover:border-gray-200 hover:rounded p-1 border border-red-500">{user.userName}</Link>
+            <Link to="/rotten_potatoes/user/watchlist" className="hover:text-gray-200 hover:border hover:border-gray-200 hover:rounded p-1 border border-red-500">My Watchlists</Link>
+            <button onClick={handleLogout} className="hover:text-gray-200 hover:border hover:border-gray-200 hover:rounded p-1 border border-red-500">Logout</button> 
           </div> :
           <Link to="/rotten_potatoes/login">Sign In</Link>
           }

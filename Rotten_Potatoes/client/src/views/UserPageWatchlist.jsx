@@ -1,6 +1,7 @@
 import { useState, useEffect} from 'react';
 import axios from 'axios';
-import Watchlist from './Watchlist';
+import Watchlist from '../components/Watchlist';
+import Button from '../components/Button';
 const USER_URL = "http://localhost:8000/api/rotten_potatoes/user/"
 
 const UserPageWatchlist = () => {
@@ -36,6 +37,19 @@ const UserPageWatchlist = () => {
             setWatchlistTitle("")
         }; 
 
+        const handleEdit = (title) => {
+            axios.put(`${USER_URL}${userId}`,{
+                watchlists:[...watchlist, {title:watchlistTitle}]
+            })
+            .then(res => {
+                console.log(res, "Watchlist Added");
+                setDataChange(Math.random());
+                setFormVisable(!formVisable);
+            })
+                .catch(err => console.log(err));
+                setWatchlistTitle("")
+            }; 
+
     useEffect(() => {
         console.log(watchlist, "watchlist")
         axios.get(
@@ -60,11 +74,10 @@ const UserPageWatchlist = () => {
     <div className='relative flex flex-col gap-4'>
         {accessToken ? 
             <div>
-                <h1>{user.firstName}</h1>
-                <button className='border rounded p-2 m-2 hover:bg-gray-50' onClick={handleAddMovie}>Add Watchlist</button>
+                <button className='border border-green-500 rounded p-1 text-green-500 hover:text-white hover:bg-green-500 hover:border-white' onClick={handleAddMovie}>Add Watchlist</button>
                 {formVisable && 
-                <div className='absolute z-10 bg-gray-50 shadow-2xl left-[37%]'>
-                    <form onSubmit={handleSubmit} className="w-[500px] border border-black p-4 flex flex-col">
+                <div className='absolute z-10 bg-gray-50 shadow-2xl left-[37%] top-[50px]'>
+                    <form onSubmit={handleSubmit} className="w-[500px] border border-black rounded p-4 flex flex-col">
                         <div className='flex'>
                             <section className='m-4'>
                                 <div className="flex flex-col gap-2">
@@ -74,11 +87,16 @@ const UserPageWatchlist = () => {
                                 </div>
                             </section>
                         </div>
-                            <button className="border border-black rounded p-2 m-2 bg-red-500 hover:bg-red-400 text-white">Add</button>
+                            <Button buttonText="Add"/>
                     </form>
                 </div>}
                 <div className='flex flex-col gap-4 m-4'>
-                    {watchlist && <Watchlist watchlist={watchlist}/>}
+                    {watchlist &&
+                    <Watchlist 
+                    watchlist={watchlist}
+                    userId={userId}
+                    url={USER_URL}
+                    onSubmitHandler={handleEdit}/>}
                 </div>
             </div> :
             <h1>Not authorized</h1>

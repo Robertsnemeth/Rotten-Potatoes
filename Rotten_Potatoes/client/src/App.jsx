@@ -3,9 +3,10 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import LoginForm from './components/LoginForm';
 import NavBar from './components/NavBar';
 import RegistrationForm from './components/RegistrationForm';
-import UserPageWatchlist from './components/UserPageWatchlist';
+import UserPageWatchlist from './views/UserPageWatchlist';
 import HomePage from './views/HomePage';
 import UserPageAccount from './views/UserPageAccount';
+import Footer from './components/Footer';
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
             <Route element={<UserPageWatchlist/>} path="/rotten_potatoes/user/watchlist"/>
             <Route element={<UserPageAccount/>} path="/rotten_potatoes/user/account"/>
           </Routes>
+          <Footer/>
       </BrowserRouter>
     </div>
   )

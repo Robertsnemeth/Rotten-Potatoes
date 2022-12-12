@@ -4,6 +4,7 @@ const API_URL = "http://www.omdbapi.com?apikey=b79df8f9";
 const USER_URL = "http://localhost:8000/api/rotten_potatoes/user/"
 import notFound from '../assets/not_found.jpg';
 import { AiOutlinePlus } from 'react-icons/ai';
+import Button from '../components/Button';
 
 const HomePage = ({
   movies,
@@ -86,37 +87,42 @@ const HomePage = ({
         <h1>Loading...</h1>
       </div> :
     <div>
-    {movies ? <div className="grid grid-cols-5 m-4">{movies.map((movie, index) => {
-      return (
-        <div key={index} className="m-2">
-          { movie.Poster === "N/A" ?
-          <div>
-              <img src={notFound} alt="movie poster, not found" className="h-[400px] w-[270px] cursor-pointer rounded"/>
-              <AiOutlinePlus size="30px" className="absolute right-[50px] top-2 bg-white rounded opacity-50 z-10 cursor-pointer hover:opacity-90" onClick={() => {handleAddMovie(movie.Title, movie.Poster, movie.imdbID)}}/>
-          </div>
-            :
-            <div className='relative'>
-              <div className="flex">
-                {addIsClicked && movie.imdbID === watchlistMovieId && <form onSubmit={handleSubmit}>
-                        <label htmlFor="watchlist" >Select Watchlist:</label>
-                        <select id="watchlist" onChange={handleIndex}>
-                          <option>--</option>
-                        {watchlists.map((list, index) => {
-                          return(
-                            <option key={index} value={index}>{list.title}</option>
-                            )
-                        })}
-                        </select>
-                        <button>Add</button>
-                </form>}
-              </div>
-              <AiOutlinePlus size="30px" className="absolute right-[50px] top-[30px] bg-white rounded opacity-50 z-10 cursor-pointer hover:opacity-90" onClick={() => {handleAddMovie(movie.Title, movie.Poster, movie.imdbID)}}/>
-              <img src={movie.Poster} alt="movie poster" className="h-[400px] w-[270px] cursor-pointer hover:shadow-lg rounded"/>
+    {movies ? <div>
+      <h1 className="text-start ml-12  border-l-8 border-red-500 p-3 text-2xl font-bold">Featured Movies</h1>
+      <div className="grid grid-cols-5 m-5">{movies.map((movie, index) => {
+        return (
+          <div key={index} className="m-2">
+            { movie.Poster === "N/A" ?
+            <div>
+                <img src={notFound} alt="movie poster, not found" className="h-[400px] w-[270px] cursor-pointer rounded"/>
+                <AiOutlinePlus size="30px" className="absolute right-[50px] top-2 bg-white rounded opacity-50 z-10 cursor-pointer hover:opacity-90" onClick={() => {handleAddMovie(movie.Title, movie.Poster, movie.imdbID)}}/>
             </div>
-          }
-        </div>
-        )
-      })}</div> :
+              :
+              <div className='relative'>
+                <div className="flex">
+                  {addIsClicked && movie.imdbID === watchlistMovieId && 
+                  <form onSubmit={handleSubmit} className="absolute border border-black bg-white p-1 flex gap-2 rounded items-center top-[-44px] left-[44px] w-[270px] z-10">
+                      <label htmlFor="watchlist" className="p-0">Watchlist:</label>
+                      <select id="watchlist" onChange={handleIndex} className="border border-red-500 rounded">
+                        <option>--</option>
+                      {watchlists.map((list, index) => {
+                        return(
+                          <option key={index} value={index}>{list.title}</option>
+                          )
+                      })}
+                      </select>
+                      <Button buttonText="Add"/>
+                  </form>}
+                </div>
+                <AiOutlinePlus size="30px" className="absolute right-[50px] top-[10px] bg-white rounded opacity-50 z-10 cursor-pointer hover:opacity-90 " onClick={() => {handleAddMovie(movie.Title, movie.Poster, movie.imdbID)}}/>
+                <img src={movie.Poster} alt="movie poster" className="h-[400px] w-[270px] cursor-pointer hover:shadow-3xl rounded hover:grayscale"/>
+              </div>
+            }
+          </div>
+          )
+        })}</div> 
+    </div> 
+    :
       <div className="flex flex-col gap-4">
         <h1 className="text-3xl font-bold">0 results</h1>
         <img src={notFound} alt="" />
