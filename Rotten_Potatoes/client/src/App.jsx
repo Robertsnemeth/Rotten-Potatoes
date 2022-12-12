@@ -32,7 +32,7 @@ function App() {
             <Route element={<UserPageWatchlist/>} path="/rotten_potatoes/user/watchlist"/>
             <Route element={<UserPageAccount/>} path="/rotten_potatoes/user/account"/>
           </Routes>
-          <Footer className=""/>
+          <Footer/>
       </BrowserRouter>
     </div>
   )

@@ -42,6 +42,7 @@ const UserPageWatchlist = () => {
             axios.put(`http://localhost:8000/api/rotten_potatoes/movie_watchlist/${id}`,{title})
             .then(res => {
                 console.log(res, "Watchlist Added");
+                setDataChange(Math.random());
             })
                 .catch(err => console.log(err));
                 setWatchlistTitle("")
