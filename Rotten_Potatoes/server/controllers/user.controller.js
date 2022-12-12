@@ -41,6 +41,14 @@ module.exports.findAllUsers = (req, res) => {
         .catch(err => {res.json({message: "Something went wrong", error: err})})
 };
 
+module.exports.findAllWatchlistsByUser = (req, res) => {
+    User.find({_id: req.params.id}).populate("watchlists")
+        .then(userWatchlists => {
+            res.json(userWatchlists)
+        })
+        .catch(err => {res.json({message: "Something went wrong", error: err})})
+};
+
 module.exports.findSingleUser = (req, res) => {
     User.findById(req.user.id)
         .then(singleUser => {res.status(200).json({user: singleUser})})

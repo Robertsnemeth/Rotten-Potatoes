@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const User = require('./user.model');
 
 const MovieWatchlistSchema = new mongoose.Schema({
     title: {
@@ -8,8 +9,6 @@ const MovieWatchlistSchema = new mongoose.Schema({
     movies: [{
         title: {
             type: String,
-            required: [true, "Title is required"],
-            minLength: [ 2, "Title must be at least 2 characters long"]
         },
         movie: {
             title: {
@@ -18,12 +17,12 @@ const MovieWatchlistSchema = new mongoose.Schema({
             poster: {
                 type: String
             }
-        },
-        user: {
-            type: Schema.Types.ObjectID,
-            ref: "User"
         }
-}]
+    }],
+    user: {
+        type: mongoose.Types.ObjectId,
+        ref: "User"
+    }
 }, {timestamps: true});
 
 module.exports = mongoose.model("MovieWatchlist", MovieWatchlistSchema);

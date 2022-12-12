@@ -8,7 +8,7 @@ const UserPageWatchlist = () => {
 
     const [ user, setUser ] = useState({});
     const [ accessToken, setAccessToken ] = useState(localStorage.getItem('accessToken'));
-    const [ watchlist, setWatchlist ] = useState([]);
+    const [ watchlist, setWatchlists ] = useState([]);
     const [ userId, setUserId ] = useState(localStorage.getItem('userId'));
     const [ watchlistTitle, setWatchlistTitle ] = useState("");
     const [ dataChange, setDataChange ] = useState("");
@@ -25,8 +25,9 @@ const UserPageWatchlist = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(watchlist)
-        axios.put(`${USER_URL}${userId}`,{
-            watchlists:[...watchlist, {title:watchlistTitle}]
+        axios.post("http://localhost:8000/api/rotten_potatoes/movie_watchlist",{
+            title: watchlistTitle,
+            user: user
         })
         .then(res => {
             console.log(res, "Watchlist Added");
@@ -37,18 +38,23 @@ const UserPageWatchlist = () => {
             setWatchlistTitle("")
         }; 
 
-        const handleEdit = (title) => {
-            axios.put(`${USER_URL}${userId}`,{
-                watchlists:[...watchlist, {title:watchlistTitle}]
-            })
+        const handleEdit = (title, id) => {
+            axios.put(`http://localhost:8000/api/rotten_potatoes/movie_watchlist/${id}`,{title})
             .then(res => {
                 console.log(res, "Watchlist Added");
-                setDataChange(Math.random());
-                setFormVisable(!formVisable);
             })
                 .catch(err => console.log(err));
                 setWatchlistTitle("")
-            }; 
+        }; 
+
+        const handleDelete = (id) => {
+            axios.delete(`http://localhost:8000/api/rotten_potatoes/movie_watchlist/${id}`)
+                .then(res => {
+                    console.log(res);
+                    setDataChange(Math.random());
+                })
+                .catch(err => console.log(err))
+        };
 
     useEffect(() => {
         console.log(watchlist, "watchlist")
@@ -65,16 +71,22 @@ const UserPageWatchlist = () => {
                 localStorage.setItem('userId', res.data.user._id);
                 setUserId(res.data.user._id)
                 console.log(userId, "useEffect userId");
-                setWatchlist(res.data.user.watchlists);
-            })
+                axios.get(`http://localhost:8000/api/rotten_potatoes/movie_watchlist/${userId}`)
+                .then((res) => {
+                console.log(res.data.movieWatchlist, "reference get request");
+                setWatchlists(res.data.movieWatchlist);
+                })
+                .catch((err) => console.log(err));
+                })
             .catch(err => console.log(err))
-    }, [dataChange]);
+    }, [watchlistTitle]);
 
   return (
     <div className='relative flex flex-col gap-4'>
         {accessToken ? 
-            <div>
-                <button className='border border-green-500 rounded p-1 text-green-500 hover:text-white hover:bg-green-500 hover:border-white' onClick={handleAddMovie}>Add Watchlist</button>
+            <div className='flex flex-col w-9/12'>
+                <button className='self-center border border-green-500 rounded p-1 text-green-500 hover:text-white hover:bg-green-500 hover:border-white' onClick={handleAddMovie}>Add Watchlist</button>
+                <h1 className="text-start ml-12  border-l-8 border-red-500 p-3 text-2xl font-bold">Watchlists</h1>
                 {formVisable && 
                 <div className='absolute z-10 bg-gray-50 shadow-2xl left-[37%] top-[50px]'>
                     <form onSubmit={handleSubmit} className="w-[500px] border border-black rounded p-4 flex flex-col">
@@ -95,8 +107,9 @@ const UserPageWatchlist = () => {
                     <Watchlist 
                     watchlist={watchlist}
                     userId={userId}
-                    url={USER_URL}
-                    onSubmitHandler={handleEdit}/>}
+                    onSubmitHandler={handleEdit}
+                    onDeleteHandler={handleDelete}
+                    setDataChange={setDataChange}/>}
                 </div>
             </div> :
             <h1>Not authorized</h1>

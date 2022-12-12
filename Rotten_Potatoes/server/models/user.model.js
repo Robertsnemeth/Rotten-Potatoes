@@ -3,6 +3,7 @@ const uniqueValidator = require('mongoose-unique-validator');
 const bcrypt = require('bcrypt');
 const validator = require('validator');
 const { isEmail } = validator;
+const MovieWatchlist = require('./movie_watchlist.model');
 
 const UserSchema = new mongoose.Schema( {
     userName: {
@@ -30,7 +31,7 @@ const UserSchema = new mongoose.Schema( {
         uniqueCaseInsensitive: [true]
     },
     watchlists: [{
-            type: Schema.Types.ObjectId,
+            type: mongoose.Types.ObjectId,
             ref: "MovieWatchlist"
     }],
     password: {

@@ -1,4 +1,5 @@
 const MovieWatchlist = require("../models/movie_watchlist.model");
+const User = require("../models/user.model");
 
 module.exports.findAllMovieWatchlists = (req, res) => {
     MovieWatchlist.find()
@@ -14,6 +15,12 @@ module.exports.createMovieWatchlist = (req, res) => {
 
 module.exports.findSingleMovieWatchlist = (req, res) => {
     MovieWatchlist.findOne({_id: req.params.id})
+        .then(singleMovieWatchlist => {res.json({movieWatchlist: singleMovieWatchlist})})
+        .catch(err => {res.json({message: "Something went wrong", error:err})})
+};
+
+module.exports.findSingleMovieWatchlistWithUser = (req, res) => {
+    MovieWatchlist.find({user: req.params.user})
         .then(singleMovieWatchlist => {res.json({movieWatchlist: singleMovieWatchlist})})
         .catch(err => {res.json({message: "Something went wrong", error:err})})
 };

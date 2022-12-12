@@ -13,6 +13,7 @@ const RegistrationForm = () => {
     const [ confirmPassword, setConfirmPassword ] = useState("")
     const [ formErrors, setFormErrors ] = useState({})
     const [ dataChange, setDataChange ] = useState("");
+    const [ accessToken, setAccessToken ] = useState(localStorage.getItem('accessToken'));
 
     const navigate = useNavigate();
 
@@ -46,8 +47,10 @@ const RegistrationForm = () => {
             confirmPassword})
         .then(res =>
             {console.log(res);
+            setAccessToken(localStorage.setItem('accessToken', res.data.token));
             setDataChange(Math.random());
-            navigate("/rotten_potatoes/user")
+            navigate("/rotten_potatoes/user");
+            window.location.reload(false);
         })
         .catch(err => {
             console.log(err);
