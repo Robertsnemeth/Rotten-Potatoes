@@ -18,11 +18,11 @@ module.exports.createUser = (req, res) => {
 module.exports.loginUser = async(req, res) => {
     const user = await User.findOne({email: req.body.email});
     if(user === null) {
-        return res.sendStatus(400).json({error: "invalid email/password"});
+        return res.status(400).json({error: "invalid email/password"});
     }
     const correctPassword = await bcrypt.compare(req.body.password, user.password);
     if(!correctPassword) {
-        return res.sendStatus(400).json({error: "invalid email/password"});
+        return res.status(400).json({error: "invalid email/password"});
     }
     const userToken = jwt.sign({
         id: user._id

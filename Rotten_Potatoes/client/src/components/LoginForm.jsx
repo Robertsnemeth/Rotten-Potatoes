@@ -31,7 +31,7 @@ const LoginForm = () => {
         })
         .catch(err => {
             console.log(err);
-            const errRes = err.response.data.error.errors
+            const errRes = err.response.data.error
             setFormErrors(errRes);
         })
     }
@@ -44,12 +44,11 @@ const LoginForm = () => {
             <div className='flex'>
                 <section className='m-4'>
                     <div className="flex flex-col gap-2">
-                    {formErrors.email && <p className="text-center text-red-500">{formErrors.email.message}</p>}
+                    {formErrors && <p className="text-center text-red-500">{formErrors}</p>}
                         <label htmlFor="email">Email: </label>
                         <input className="border border-black rounded w-[400px]" type="text" onChange={handleEmail} value={email}/>
                     </div>
                     <div className="flex flex-col gap-2">
-                    {formErrors.password && <p className="text-center text-red-500">{formErrors.password.message}</p>}
                         <label htmlFor="password">Password: </label>
                         <input className="border border-black rounded" type="password" onChange={handlePassword} value={password}/>
                     </div>
