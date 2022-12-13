@@ -19,6 +19,7 @@ const HomePage = ({
   const [ watchlistMoviePoster, setWatchlistMoviePoster ] = useState("");
   const [ isLoading, setIsLoading ] = useState(false);
   const [ addIsClicked, setAddIsClicked ] = useState(false);
+  const [ movieImdbId, setMovieImdbId ] = useState("");
  
   const userId = localStorage.getItem('userId');
   const accessToken = localStorage.getItem('accessToken');
@@ -28,10 +29,11 @@ const HomePage = ({
     setWatchlistId(e.target.value);
   };
 
-  const handleAddMovie = ( title, poster) => {
+  const handleAddMovie = ( title, poster, id) => {
     console.log("title", title, "poster", poster)
     setWatchlistMovieTitle(title);
     setWatchlistMoviePoster(poster);
+    setMovieImdbId(id);
     setAddIsClicked(!addIsClicked);
   };
 
@@ -96,14 +98,9 @@ const HomePage = ({
         return (
           <div key={index} className="m-2">
             { movie.Poster === "N/A" ?
-            <div>
-                <img src={notFound} alt="movie poster, not found" className="h-[400px] w-[270px] cursor-pointer rounded"/>
-                <AiOutlinePlus size="30px" className="absolute right-[50px] top-2 bg-white rounded opacity-50 z-10 cursor-pointer hover:opacity-90" onClick={() => {handleAddMovie(movie.Title, movie.Poster)}}/>
-            </div>
-              :
-              <div className='relative'>
+            <div className='relative'>
                 <div className="flex">
-                  {addIsClicked && movie.Title === watchlistMovieTitle && 
+                  {addIsClicked && movie.imdbID === movieImdbId && 
                   <form onSubmit={handleSubmit} className="absolute border border-black bg-white p-1 flex gap-1 rounded items-center top-[-44px] left-[44px] w-[270px] z-10">
                       <label htmlFor="watchlist" className="p-0">Watchlist:</label>
                       <select id="watchlist" onChange={handleId} className="border border-red-500 rounded">
@@ -117,7 +114,28 @@ const HomePage = ({
                       <Button buttonText="Add"/>
                   </form>}
                 </div>
-                <AiOutlinePlus size="30px" className="absolute right-[50px] top-[10px] bg-white rounded opacity-50 z-10 cursor-pointer hover:opacity-90 " onClick={() => {handleAddMovie(movie.Title, movie.Poster)}}/>
+                <h1 className='absolute bottom-0 left-6'>{movie.Title}</h1>
+                <AiOutlinePlus size="30px" className="absolute right-[50px] top-2 bg-white rounded opacity-50 z-10 cursor-pointer hover:opacity-90" onClick={() => {handleAddMovie(movie.Title, movie.Poster, movie.imdbID)}}/>
+                <img src={notFound} alt="movie poster, not found" className="h-[400px] w-[270px] cursor-pointer rounded"/>
+            </div>
+              :
+              <div className='relative'>
+                <div className="flex">
+                  {addIsClicked && movie.imdbID === movieImdbId && 
+                  <form onSubmit={handleSubmit} className="absolute border border-black bg-white p-1 flex gap-1 rounded items-center top-[-44px] left-[44px] w-[270px] z-10">
+                      <label htmlFor="watchlist" className="p-0">Watchlist:</label>
+                      <select id="watchlist" onChange={handleId} className="border border-red-500 rounded">
+                        <option>--</option>
+                      {watchlists.map((list, index) => {
+                        return(
+                          <option key={index} value={list._id}>{list.title}</option>
+                          )
+                      })}
+                      </select>
+                      <Button buttonText="Add"/>
+                  </form>}
+                </div>
+                <AiOutlinePlus size="30px" className="absolute right-[50px] top-[10px] bg-white rounded opacity-50 z-10 cursor-pointer hover:opacity-90 " onClick={() => {handleAddMovie(movie.Title, movie.Poster,  movie.imdbID)}}/>
                 <img src={movie.Poster} alt="movie poster" className="h-[400px] w-[270px] cursor-pointer hover:shadow-3xl rounded hover:grayscale"/>
               </div>
             }

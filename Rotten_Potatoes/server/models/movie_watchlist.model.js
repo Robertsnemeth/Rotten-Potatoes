@@ -4,7 +4,8 @@ const User = require('./user.model');
 const MovieWatchlistSchema = new mongoose.Schema({
     title: {
         type: String,
-        required: [true, "Tile is required"]
+        required: [true, "Tile is required"],
+        minLength: [ 2, "Title must be at least 2 characters long"]
     },
     movies: [{
         title: {

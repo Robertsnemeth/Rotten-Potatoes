@@ -14,7 +14,7 @@ function App() {
   const [ movieTitle, setMovieTitle ] = useState("Harry Potter")
 
   return (
-    <div className="">
+    <div className="font-yanone-kaffeesatz font-bold">
       <BrowserRouter>
         <NavBar  
             movieTitle={movieTitle}

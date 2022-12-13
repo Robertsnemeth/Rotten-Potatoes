@@ -54,7 +54,7 @@ const Watchlist = ({
                         <AiOutlineEdit color="green" onClick={() => handleEdit(list.title, list._id)} className="cursor-pointer hover:border hover:border-green-500 hover:rounded"/>
                         <RiDeleteBin6Line color="red" onClick={() => handleDelete(list._id)} className="cursor-pointer hover:border hover:border-red-500 hover:rounded"/>
                     </div>
-                    <div className='flex gap-4 flex-wrap'>
+                    <div className='grid grid-cols-4 gap-4'>
                         {list.movies.map((currentMovie, index) => {
                             return (
                                 <div className='flex flex-col gap-1 text-center' key={currentMovie._id}>
