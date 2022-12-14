@@ -6,12 +6,15 @@ import axios from 'axios';
 
 const NavBar = ({
   movieTitle,
-  setMovieTitle
+  setMovieTitle,
+  setSearched,
+  setSearchParam
 }) => {
 
   const [ title, setTitle ] = useState("");
   const [ accessToken, setAccessToken ] = useState(localStorage.getItem('accessToken'));
   const [ user, setUser ] = useState({});
+  const [ userId, setUserId] = useState(localStorage.getItem('userId'));
 
   const navigate = useNavigate();
 
@@ -22,7 +25,10 @@ const NavBar = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     setMovieTitle(title);
+    setSearchParam(title);
+    setSearched(true);
     setTitle("");
+    navigate("/")
   };
 
   const handleLogout = () => {
@@ -43,6 +49,7 @@ const NavBar = ({
         .then((res) => {
             console.log(res);
             setUser(res.data.user);
+            setUserId(localStorage.setItem('userId', res.data.user._id));
         })
         .catch(err => console.log(err))
 }, []);
@@ -61,7 +68,7 @@ const NavBar = ({
             <Link to="/rotten_potatoes/user/watchlist" className="hover:text-gray-200 hover:border hover:border-gray-200 hover:rounded p-1 border border-red-500">My Watchlists</Link>
             <button onClick={handleLogout} className="hover:text-gray-200 hover:border hover:border-gray-200 hover:rounded p-1 border border-red-500">Logout</button> 
           </div> :
-          <Link to="/rotten_potatoes/login">Sign In</Link>
+          <Link to="/rotten_potatoes/login">Sign In/Sign Up</Link>
           }
     </nav>
   )

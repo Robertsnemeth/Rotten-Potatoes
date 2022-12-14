@@ -10,7 +10,8 @@ const HomePage = ({
   movies,
   setMovies,
   movieTitle,
-  setMovieTitle
+  searched,
+  searchParam
 }) => {
 
   const [ watchlists, setWatchlists ] = useState([]);
@@ -20,6 +21,7 @@ const HomePage = ({
   const [ isLoading, setIsLoading ] = useState(false);
   const [ addIsClicked, setAddIsClicked ] = useState(false);
   const [ movieImdbId, setMovieImdbId ] = useState("");
+  const [ isAdded, setIsAdded ] = useState(false);
  
   const userId = localStorage.getItem('userId');
   const accessToken = localStorage.getItem('accessToken');
@@ -52,6 +54,8 @@ const HomePage = ({
           setWatchlistId("");
           setWatchlistMovieTitle("");
           setWatchlistMoviePoster("");
+          setAddIsClicked(!addIsClicked);
+          setIsAdded(!isAdded);
       })
       .catch(err => console.log(err))
 
@@ -92,9 +96,11 @@ const HomePage = ({
         <h1>Loading...</h1>
       </div> :
     <div>
-    {movies ? <div>
+    {movies ? 
+    <div>
       <h1 className="text-start ml-12  border-l-8 border-red-500 p-3 text-2xl font-bold">Featured Movies</h1>
-      <div className="grid grid-cols-5 m-5">{movies.map((movie, index) => {
+      {searched && <h1 className="text-start ml-12 m-4">Searched for "{searchParam}"</h1>}
+      <div className="grid grid-cols-5 m-6">{movies.map((movie, index) => {
         return (
           <div key={index} className="m-2">
             { movie.Poster === "N/A" ?
@@ -122,11 +128,11 @@ const HomePage = ({
               <div className='relative'>
                 <div className="flex">
                   {addIsClicked && movie.imdbID === movieImdbId && 
-                  <form onSubmit={handleSubmit} className="absolute border border-black bg-white p-1 flex gap-1 rounded items-center top-[-44px] left-[44px] w-[270px] z-10">
+                  <form onSubmit={handleSubmit} className="absolute border border-black bg-white flex gap-1 rounded items-center top-[-36px] left-[42px] w-[271px] z-10">
                       <label htmlFor="watchlist" className="p-0">Watchlist:</label>
                       <select id="watchlist" onChange={handleId} className="border border-red-500 rounded">
                         <option>--</option>
-                      {watchlists.map((list, index) => {
+                      {watchlists && watchlists.map((list, index) => {
                         return(
                           <option key={index} value={list._id}>{list.title}</option>
                           )
@@ -135,8 +141,8 @@ const HomePage = ({
                       <Button buttonText="Add"/>
                   </form>}
                 </div>
-                <AiOutlinePlus size="30px" className="absolute right-[50px] top-[10px] bg-white rounded opacity-50 z-10 cursor-pointer hover:opacity-90 " onClick={() => {handleAddMovie(movie.Title, movie.Poster,  movie.imdbID)}}/>
-                <img src={movie.Poster} alt="movie poster" className="h-[400px] w-[270px] cursor-pointer hover:shadow-3xl rounded hover:grayscale"/>
+                  <AiOutlinePlus size="30px" className="absolute right-[50px] top-[10px] bg-white rounded opacity-50 z-10 cursor-pointer hover:opacity-90 " onClick={() => {handleAddMovie(movie.Title, movie.Poster,  movie.imdbID)}}/>
+                  <img src={movie.Poster} alt="movie poster" className="h-[400px] w-[270px] cursor-pointer hover:shadow-3xl rounded hover:grayscale"/>
               </div>
             }
           </div>
@@ -146,7 +152,7 @@ const HomePage = ({
     :
       <div className="flex flex-col gap-4">
         <h1 className="text-3xl font-bold">0 results</h1>
-        <img src={notFound} alt="" />
+        <img src={notFound} alt="no results" className="h-[650px]" />
       </div>
     }
     </div>}

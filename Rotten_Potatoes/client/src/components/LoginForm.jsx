@@ -5,7 +5,7 @@ import axios from 'axios';
 const LoginForm = () => {
     const [ email, setEmail ] = useState("");
     const [ password, setPassword ] = useState("");
-    const [ formErrors, setFormErrors ] = useState({})
+    const [ formErrors, setFormErrors ] = useState()
     const [ dataChange, setDataChange ] = useState("");
     const [ accessToken, setAccessToken ] = useState(localStorage.getItem('accessToken'));
 
@@ -26,7 +26,7 @@ const LoginForm = () => {
         .then(res =>
             {console.log(res);
             setAccessToken(localStorage.setItem('accessToken', res.data.token));
-            navigate("/rotten_potatoes/user/watchlist");
+            navigate("/");
             window.location.reload(false);
         })
         .catch(err => {
@@ -37,7 +37,7 @@ const LoginForm = () => {
     }
 
     return (
-    <div>
+    <div className='mb-96'>
         <div className='flex flex-col items-center'>
             <h1 className="text-2xl m-3">Login User</h1>
         <form onSubmit={handleSubmit} className="w-[500px] border border-black p-4 flex flex-col">

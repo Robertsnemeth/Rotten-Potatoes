@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import Button from '../components/Button';
+import DeleteButton from '../components/DeleteButton';
 const USER_URL = "http://localhost:8000/api/rotten_potatoes/user/";
 
 const UserPageAccount = () => {
@@ -70,44 +72,47 @@ const UserPageAccount = () => {
     }, [dataChange]);
 
   return (
-    <>
+    <div className='mb-72'>
     {accessToken ? 
         <div>
-        <div className='flex flex-col items-center'>
-            <h1 className="text-2xl m-3">Update {user.userName}</h1>
-        <form onSubmit={handleSubmit} className="w-[500px] border border-black p-4 flex flex-col">
-            <div className='flex'>
-                <section className='m-4'>
-                <div className="flex flex-col gap-2">
-                    {formErrors.userName && <p className="text-center text-red-500">{formErrors.userName.message}</p>}
-                        <label htmlFor="username">Username: </label>
-                        <input className="border border-black rounded w-[400px]" type="text" onChange={handleUserName} value={userName}/>
+            <div className='flex flex-col items-center mb-5'>
+                <h1 className="text-2xl m-3">Update {user.userName}</h1>
+                <form onSubmit={handleSubmit} className="w-[500px] border border-black p-4 flex flex-col">
+                    <div className='flex'>
+                        <section className='m-4'>
+                        <div className="flex flex-col gap-2">
+                            {formErrors.userName && <p className="text-center text-red-500">{formErrors.userName.message}</p>}
+                                <label htmlFor="username">Username: </label>
+                                <input className="border border-black rounded w-[400px]" type="text" onChange={handleUserName} value={userName}/>
+                            </div>
+                            <div className="flex flex-col gap-2">
+                            {formErrors.firstName && <p className="text-center text-red-500">{formErrors.firstName.message}</p>}
+                                <label htmlFor="firstName">First Name: </label>
+                                <input className="border border-black rounded w-[400px]" type="text" onChange={handleFirstName} value={firstName}/>
+                            </div>
+                            <div className="flex flex-col gap-2">
+                            {formErrors.lastName && <p className="text-center text-red-500">{formErrors.lastName.message}</p>}
+                                <label htmlFor="lastName">Last Name: </label>
+                                <input className="border border-black rounded" type="text" onChange={handleLastName} value={lastName}/>
+                            </div>
+                            <div className="flex flex-col gap-2">
+                            {formErrors.email && <p className="text-center text-red-500">{formErrors.email.message}</p>}
+                                <label htmlFor="email">Email: </label>
+                                <input className="border border-black rounded" type="text" onChange={handleEmail} value={email}/>
+                            </div>
+                        </section>
                     </div>
-                    <div className="flex flex-col gap-2">
-                    {formErrors.firstName && <p className="text-center text-red-500">{formErrors.firstName.message}</p>}
-                        <label htmlFor="firstName">First Name: </label>
-                        <input className="border border-black rounded w-[400px]" type="text" onChange={handleFirstName} value={firstName}/>
-                    </div>
-                    <div className="flex flex-col gap-2">
-                    {formErrors.lastName && <p className="text-center text-red-500">{formErrors.lastName.message}</p>}
-                        <label htmlFor="lastName">Last Name: </label>
-                        <input className="border border-black rounded" type="text" onChange={handleLastName} value={lastName}/>
-                    </div>
-                    <div className="flex flex-col gap-2">
-                    {formErrors.email && <p className="text-center text-red-500">{formErrors.email.message}</p>}
-                        <label htmlFor="email">Email: </label>
-                        <input className="border border-black rounded" type="text" onChange={handleEmail} value={email}/>
-                    </div>
-                </section>
-            </div>
-                <button className="border border-black rounded p-2 m-2 bg-red-500 hover:bg-red-400 text-white">Update</button>
-        </form>
-    </div>        </div> :
+                <Button buttonText="Update"/>
+                <p>{userId}</p>
+            </form>
+        </div>
+        <DeleteButton/>
+    </div> :
         <div>
             <h1>Not Authorized</h1>
         </div>
     }
-    </>
+    </div>
   )
 }
 

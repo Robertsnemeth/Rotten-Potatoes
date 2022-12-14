@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 
 
@@ -49,7 +49,7 @@ const RegistrationForm = () => {
             {console.log(res);
             setAccessToken(localStorage.setItem('accessToken', res.data.token));
             setDataChange(Math.random());
-            navigate("/rotten_potatoes/user");
+            navigate("/");
             window.location.reload(false);
         })
         .catch(err => {
@@ -60,14 +60,14 @@ const RegistrationForm = () => {
     }
 
   return (
-    <div>
+    <div className='mb-44'>
         <div className='flex flex-col items-center'>
             <h1 className="text-2xl m-3">Register User</h1>
         <form onSubmit={handleSubmit} className="w-[500px] border border-black p-4 flex flex-col">
             <div className='flex'>
                 <section className='m-4'>
                 <div className="flex flex-col gap-2">
-                    {formErrors.userName && <p className="text-center text-red-500">{formErrors.userName.message}</p>}
+                    {formErrors.userName && <p className="text-center text-red-500">This username is already taken</p>}
                         <label htmlFor="username">Username: </label>
                         <input className="border border-black rounded w-[400px]" type="text" onChange={handleUserName} value={userName}/>
                     </div>
@@ -101,6 +101,7 @@ const RegistrationForm = () => {
                 <button className="border border-black rounded p-2 m-2 bg-red-500 hover:bg-red-400 text-white">Register</button>
         </form>
     </div>
+    <Link to="/rotten_potatoes/login" className="underline">Back to Sign In</Link>
     </div>
   )
 }
