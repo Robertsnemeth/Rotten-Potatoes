@@ -12,6 +12,7 @@ const UserPageWatchlist = () => {
     const [ userId, setUserId ] = useState(localStorage.getItem('userId'));
     const [ watchlistTitle, setWatchlistTitle ] = useState("");
     const [ dataChange, setDataChange ] = useState("");
+    const [ formErrors, setFormErrors ] = useState({});
     const [ formVisable, setFormVisable ] = useState(false);
 
     const handleWatchlistTitle = (e) => {
@@ -34,7 +35,11 @@ const UserPageWatchlist = () => {
             setDataChange(Math.random());
             setFormVisable(!formVisable);
         })
-            .catch(err => console.log(err));
+            .catch(err => {
+                console.log(err);
+                const errRes = err.response.data.error.errors;
+                setFormErrors(errRes);
+            });
             setWatchlistTitle("")
         }; 
 
@@ -94,6 +99,7 @@ const UserPageWatchlist = () => {
                 <h1 className="text-start ml-12  border-l-8 border-red-500 p-3 text-2xl font-bold">Potato Sack's</h1>
                 {formVisable && 
                 <div className='absolute z-10 bg-gray-50 shadow-2xl left-[37%] top-[175px]'>
+                {formErrors.title && <p className="text-center text-red-500">{formErrors.title.message}</p>}
                     <form onSubmit={handleSubmit} className="w-[500px] border border-black rounded p-4 flex flex-col">
                         <div className='flex'>
                             <section className='m-4'>

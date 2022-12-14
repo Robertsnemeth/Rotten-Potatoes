@@ -68,7 +68,7 @@ const NavBar = ({
             <Link to="/rotten_potatoes/user/watchlist" className="hover:text-gray-200 hover:border hover:border-gray-200 hover:rounded p-1 border border-red-500">My Watchlists</Link>
             <button onClick={handleLogout} className="hover:text-gray-200 hover:border hover:border-gray-200 hover:rounded p-1 border border-red-500">Logout</button> 
           </div> :
-          <Link to="/rotten_potatoes/login">Sign In/Sign Up</Link>
+          <Link to="/rotten_potatoes/login" className="hover:text-gray-200 hover:border hover:border-gray-200 hover:rounded p-1 border border-red-500">Sign In/Sign Up</Link>
           }
     </nav>
   )

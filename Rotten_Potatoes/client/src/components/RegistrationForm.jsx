@@ -67,7 +67,7 @@ const RegistrationForm = () => {
             <div className='flex'>
                 <section className='m-4'>
                 <div className="flex flex-col gap-2">
-                    {formErrors.userName && <p className="text-center text-red-500">This username is already taken</p>}
+                    {formErrors.userName && <p className="text-center text-red-500">{formErrors.userName.message}</p>}
                         <label htmlFor="username">Username: </label>
                         <input className="border border-black rounded w-[400px]" type="text" onChange={handleUserName} value={userName}/>
                     </div>

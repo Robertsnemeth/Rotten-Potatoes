@@ -121,14 +121,14 @@ const HomePage = ({
                   </form>}
                 </div>
                 <h1 className='absolute bottom-0 left-6'>{movie.Title}</h1>
-                <AiOutlinePlus size="30px" className="absolute right-[50px] top-2 bg-white rounded opacity-50 z-10 cursor-pointer hover:opacity-90" onClick={() => {handleAddMovie(movie.Title, movie.Poster, movie.imdbID)}}/>
+                {accessToken && <AiOutlinePlus size="30px" className="absolute right-[50px] top-2 bg-white rounded opacity-50 z-10 cursor-pointer hover:opacity-90" onClick={() => {handleAddMovie(movie.Title, movie.Poster, movie.imdbID)}}/>}
                 <img src={notFound} alt="movie poster, not found" className="h-[400px] w-[270px] cursor-pointer rounded"/>
             </div>
               :
               <div className='relative'>
                 <div className="flex">
                   {addIsClicked && movie.imdbID === movieImdbId && 
-                  <form onSubmit={handleSubmit} className="absolute border border-black bg-white flex gap-1 rounded items-center top-[-36px] left-[42px] w-[271px] z-10">
+                  <form onSubmit={handleSubmit} className="absolute border border-black bg-white flex gap-1 rounded items-center top-[-36px] left-[40px] w-[275px] z-10">
                       <label htmlFor="watchlist" className="p-0">Watchlist:</label>
                       <select id="watchlist" onChange={handleId} className="border border-red-500 rounded">
                         <option>--</option>
@@ -141,7 +141,7 @@ const HomePage = ({
                       <Button buttonText="Add"/>
                   </form>}
                 </div>
-                  <AiOutlinePlus size="30px" className="absolute right-[50px] top-[10px] bg-white rounded opacity-50 z-10 cursor-pointer hover:opacity-90 " onClick={() => {handleAddMovie(movie.Title, movie.Poster,  movie.imdbID)}}/>
+                  {accessToken && <AiOutlinePlus size="30px" className="absolute right-[50px] top-[10px] bg-white rounded opacity-50 z-10 cursor-pointer hover:opacity-90 " onClick={() => {handleAddMovie(movie.Title, movie.Poster,  movie.imdbID)}}/>}
                   <img src={movie.Poster} alt="movie poster" className="h-[400px] w-[270px] cursor-pointer hover:shadow-3xl rounded hover:grayscale"/>
               </div>
             }

@@ -43,7 +43,7 @@ const UserPageAccount = () => {
             })
             .then(res => {
                 console.log(res);
-                navigate("/");
+                window.location.reload(false);
             })
             .catch(err => {
                 console.log(err);
@@ -103,7 +103,6 @@ const UserPageAccount = () => {
                         </section>
                     </div>
                 <Button buttonText="Update"/>
-                <p>{userId}</p>
             </form>
         </div>
         <DeleteButton/>
