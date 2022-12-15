@@ -34,8 +34,9 @@ const NavBar = ({
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('userId');
-    navigate("/")
-  }
+    navigate("/");
+    window.location.reload(false)
+  };
 
   const handleHomeClick = () => {
     navigate("/");
