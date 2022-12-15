@@ -60,10 +60,13 @@ const NavBar = ({
 
   return (
     <nav className="bg-red-500 text-white grid grid-cols-3 p-2 mb-4 items-center">
-        <div onClick={handleHomeClick} className="cursor-pointer">
+      <div className='flex gap-4 cursor-pointer' onClick={handleHomeClick}>
+        <img src="https://kid-time.net/wp/wp-content/uploads/2018/06/the-grossery-gang-moldy-veg-series-1-118-smashed-potato.png" alt="rotten potato" className='w-20' />
+        <div >
           <h1 className="text-[2rem] font-fredoka-one">Rotten</h1>
           <h1 className="text-[2rem] font-fredoka-one">Potatoes</h1>
         </div>
+      </div>
           <form onSubmit={handleSubmit} className="flex items-center gap-2">
             <input id="search" className="border rounded-full text-white w-96 p-1 bg-red-800" type="text" onChange={handleTitle} value={title} placeholder="Search movies..." />
             <button><BiSearch size="25"/></button>

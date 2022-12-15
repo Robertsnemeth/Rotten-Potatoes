@@ -1,7 +1,8 @@
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 const API_URL = "http://www.omdbapi.com?apikey=b79df8f9";
-const WATCHLIST_URL = "http://localhost:8000/api/rotten_potatoes/movie_watchlist/"
+const WATCHLIST_URL = "http://localhost:8000/api/rotten_potatoes/movie_watchlist/";
+const IMDB_URL = "https://www.imdb.com/title/";
 import notFound from '../assets/not_found.jpg';
 import { AiOutlinePlus } from 'react-icons/ai';
 import Button from '../components/Button';
@@ -115,6 +116,10 @@ const HomePage = ({
       {!searched && <h1 className="text-start ml-12  border-l-8 border-red-500 p-3 text-2xl font-bold">Featured Movies</h1>}
       {searched && <h1 className="text-start ml-12 m-4">Searched for "{searchParam}"</h1>}
       <h1 className="text-start ml-12 m-4">Total results: {totalResults}</h1>
+      <div className="text-blue-600 hover:text-blue-800 ">
+          {pageNumber!=1 && <button className="m-2 underline" onClick={() => handlePrevPage()}>Prev Page</button>}
+          <button className="m-2 underline" onClick={() => handleNextPage()}>Next Page</button>
+        </div>
       <div className="grid grid-cols-5 m-6">{movies.map((movie, index) => {
         return (
           <div key={index} className="m-2">
@@ -137,7 +142,7 @@ const HomePage = ({
                 </div>
                 <h1 className='absolute bottom-0 left-6'>{movie.Title}</h1>
                 {accessToken && <AiOutlinePlus size="30px" className="absolute right-[50px] top-2 bg-white rounded opacity-50 z-10 cursor-pointer hover:opacity-90" onClick={() => {handleAddMovie(movie.Title, movie.Poster, movie.imdbID)}}/>}
-                <img src={notFound} alt="movie poster, not found" className="h-[400px] w-[270px] cursor-pointer rounded"/>
+                <a href={`${IMDB_URL}${movie.imdbID}`} target="_blank"><img src={notFound} alt="movie poster, not found" className="h-[400px] w-[270px] cursor-pointer hover:shadow-3xl rounded hover:grayscale"/></a>
             </div>
               :
               <div className='relative'>
@@ -157,21 +162,17 @@ const HomePage = ({
                   </form>}
                 </div>
                   {accessToken && <AiOutlinePlus size="30px" className="absolute right-[50px] top-[10px] bg-white rounded opacity-50 z-10 cursor-pointer hover:opacity-90 " onClick={() => {handleAddMovie(movie.Title, movie.Poster,  movie.imdbID)}}/>}
-                  <img src={movie.Poster} alt="movie poster" className="h-[400px] w-[270px] cursor-pointer hover:shadow-3xl rounded hover:grayscale"/>
+                  <a href={`${IMDB_URL}${movie.imdbID}`} target="_blank"><img src={movie.Poster} alt="movie poster" className="h-[400px] w-[270px] cursor-pointer hover:shadow-3xl rounded hover:grayscale"/></a>
               </div>
             }
           </div>
           )
         })}</div> 
-        <div className="text-blue-600 hover:text-blue-800 ">
-          {pageNumber!=1 && <button className="m-2 underline" onClick={() => handlePrevPage()}>Prev Page</button>}
-          <button className="m-2 underline" onClick={() => handleNextPage()}>Next Page</button>
-        </div>
     </div> 
     :
       <div className="flex flex-col gap-4">
         <h1 className="text-3xl font-bold">0 results</h1>
-        <img src={notFound} alt="no results" className="h-[650px]" />
+        <img src={notFound} alt="no results" className="h-[660px]" />
       </div>
     }
     </div>}
