@@ -114,8 +114,9 @@ const HomePage = ({
     {movies ? 
     <div>
       {!searched && <h1 className="text-start ml-12  border-l-8 border-red-500 p-3 text-2xl font-bold">Featured Movies</h1>}
-      {searched && <h1 className="text-start ml-12 m-4">Searched for "{searchParam}"</h1>}
+      {searched && <h1 className="text-start text-2xl ml-12 m-4">Searched for "{searchParam}"</h1>}
       <h1 className="text-start ml-12 m-4">Total results: {totalResults}</h1>
+      <hr />
       <div className="text-blue-600 hover:text-blue-800 ">
           {pageNumber!=1 && <button className="m-2 underline" onClick={() => handlePrevPage()}>Prev Page</button>}
           <button className="m-2 underline" onClick={() => handleNextPage()}>Next Page</button>
