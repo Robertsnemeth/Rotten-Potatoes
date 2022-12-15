@@ -16,7 +16,7 @@ function App() {
   const [ searchParam, setSearchParam ] = useState("");
 
   return (
-    <div className="font-yanone-kaffeesatz font-bold">
+    <div className=" font-bold">
       <BrowserRouter>
         <NavBar  
             movieTitle={movieTitle}

@@ -35,8 +35,12 @@ const NavBar = ({
     localStorage.removeItem('accessToken');
     localStorage.removeItem('userId');
     navigate("/")
-    window.location.reload(false);
   }
+
+  const handleHomeClick = () => {
+    navigate("/");
+    window.location.reload(false);
+  };
 
   useEffect(() => {
     axios.get(
@@ -55,15 +59,17 @@ const NavBar = ({
 }, []);
 
   return (
-    <nav className="bg-red-500 text-white flex content-between p-8 mb-4 items-center">
-        <Link to="/" className="text-[2.5rem]">Rotten Potatoes</Link>
+    <nav className="bg-red-500 text-white grid grid-cols-3 p-2 mb-4 items-center">
+        <div onClick={handleHomeClick} className="cursor-pointer">
+          <h1 className="text-[2rem] font-fredoka-one">Rotten</h1>
+          <h1 className="text-[2rem] font-fredoka-one">Potatoes</h1>
+        </div>
           <form onSubmit={handleSubmit} className="flex items-center gap-2">
-            <label htmlFor="search" className="text-2xl">Search Movies: </label>
-            <input id="search" className="border rounded text-white w-96 p-1 bg-red-800" type="text" onChange={handleTitle} value={title} placeholder="Search movies..." />
+            <input id="search" className="border rounded-full text-white w-96 p-1 bg-red-800" type="text" onChange={handleTitle} value={title} placeholder="Search movies..." />
             <button><BiSearch size="25"/></button>
           </form>
           {accessToken ? 
-          <div className='flex gap-6 text-'>
+          <div className='flex gap-6'>
             <Link to="/rotten_potatoes/user/account" className="hover:text-gray-200 hover:border hover:border-gray-200 hover:rounded p-1 border border-red-500">{user.userName}</Link>
             <Link to="/rotten_potatoes/user/watchlist" className="hover:text-gray-200 hover:border hover:border-gray-200 hover:rounded p-1 border border-red-500">My Watchlists</Link>
             <button onClick={handleLogout} className="hover:text-gray-200 hover:border hover:border-gray-200 hover:rounded p-1 border border-red-500">Logout</button> 

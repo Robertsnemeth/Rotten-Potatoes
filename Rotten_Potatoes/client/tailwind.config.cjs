@@ -7,7 +7,8 @@ module.exports = {
         '3xl': '0 35px 60px -15px rgba(0,0,0,0.4)'
       },
       fontFamily: {
-        'yanone-kaffeesatz' : ['sans-serif']
+        'yanone-kaffeesatz' : ['Yanone Kaffeesatz', 'sans-serif'],
+        'fredoka-one' : ['"Fredoka One"', 'cursive']
       }
     },
   },

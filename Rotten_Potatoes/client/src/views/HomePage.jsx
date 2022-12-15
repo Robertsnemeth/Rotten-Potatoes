@@ -22,6 +22,8 @@ const HomePage = ({
   const [ addIsClicked, setAddIsClicked ] = useState(false);
   const [ movieImdbId, setMovieImdbId ] = useState("");
   const [ isAdded, setIsAdded ] = useState(false);
+  const [ totalResults, setTotalResults ] = useState("");
+  let [ pageNumber, setPageNumber ] = useState(1);
  
   const userId = localStorage.getItem('userId');
   const accessToken = localStorage.getItem('accessToken');
@@ -61,10 +63,22 @@ const HomePage = ({
 
   }; 
 
+  const handleNextPage = () => {
+    setPageNumber(pageNumber += 1)
+  };
+
+  const handlePrevPage = () => {
+    setPageNumber(pageNumber -= 1)
+  };
+
   useEffect(() => {
 
-    axios.get(`${API_URL}&s=${movieTitle}`)
-      .then(res => {console.log(res, "movie api"), setMovies(res.data.Search)})
+    axios.get(`${API_URL}&s=${movieTitle}&page=${pageNumber}`)
+      .then(res => {
+        console.log(res, "movie api");
+        setMovies(res.data.Search);
+        setTotalResults(res.data.totalResults)
+      })
       .catch(err => console.log(err));
 
       axios.get(
@@ -87,7 +101,7 @@ const HomePage = ({
         })
           .catch((err) => console.log(err));
 
-  }, [movieTitle]);
+  }, [pageNumber]);
 
   return (
     <div>
@@ -98,8 +112,9 @@ const HomePage = ({
     <div>
     {movies ? 
     <div>
-      <h1 className="text-start ml-12  border-l-8 border-red-500 p-3 text-2xl font-bold">Featured Movies</h1>
+      {!searched && <h1 className="text-start ml-12  border-l-8 border-red-500 p-3 text-2xl font-bold">Featured Movies</h1>}
       {searched && <h1 className="text-start ml-12 m-4">Searched for "{searchParam}"</h1>}
+      <h1 className="text-start ml-12 m-4">Total results: {totalResults}</h1>
       <div className="grid grid-cols-5 m-6">{movies.map((movie, index) => {
         return (
           <div key={index} className="m-2">
@@ -148,6 +163,10 @@ const HomePage = ({
           </div>
           )
         })}</div> 
+        <div className="text-blue-600 hover:text-blue-800 ">
+          {pageNumber!=1 && <button className="m-2 underline" onClick={() => handlePrevPage()}>Prev Page</button>}
+          <button className="m-2 underline" onClick={() => handleNextPage()}>Next Page</button>
+        </div>
     </div> 
     :
       <div className="flex flex-col gap-4">
