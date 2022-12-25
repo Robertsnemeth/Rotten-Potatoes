@@ -117,9 +117,9 @@ const HomePage = ({
       {searched && <h1 className="text-start text-2xl ml-12 m-4">Searched for "{searchParam}"</h1>}
       <h1 className="text-start ml-12 m-4">Total results: {totalResults}</h1>
       <hr />
-      <div className="text-blue-600 hover:text-blue-800 ">
+      <div className="text-blue-600 hover:text-blue-800 text-center">
           {pageNumber!=1 && <button className="m-2 underline" onClick={() => handlePrevPage()}>Prev Page</button>}
-          <button className="m-2 underline" onClick={() => handleNextPage()}>Next Page</button>
+          {movies.length ===10 && <button className="m-2 underline" onClick={() => handleNextPage()}>Next Page</button>}
         </div>
       <div className="grid grid-cols-5 m-6">{movies.map((movie, index) => {
         return (

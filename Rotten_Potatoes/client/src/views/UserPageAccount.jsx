@@ -72,12 +72,12 @@ const UserPageAccount = () => {
     }, [dataChange]);
 
   return (
-    <div className='mb-72'>
+    <div className='h-full'>
     {accessToken ? 
-        <div>
+        <div className='flex flex-col items-center'>
             <div className='flex flex-col items-center mb-5'>
                 <h1 className="text-2xl m-3">Update {user.userName}</h1>
-                <form onSubmit={handleSubmit} className="w-[500px] border border-black p-4 flex flex-col">
+                <form onSubmit={handleSubmit} className="w-[500px] border border-black rounded shadow p-4 flex flex-col">
                     <div className='flex'>
                         <section className='m-4'>
                         <div className="flex flex-col gap-2">

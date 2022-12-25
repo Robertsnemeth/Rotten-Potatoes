@@ -92,7 +92,7 @@ const UserPageWatchlist = () => {
     }, [watchlistTitle]);
 
   return (
-    <div className='flex flex-col gap-4 '>
+    <div>
         {accessToken ? 
             <div className='flex flex-col w-9/12'>
                 <button className='self-center border border-green-500 rounded p-1 text-green-500 hover:text-white hover:bg-green-500 hover:border-white' onClick={handleAddMovie}>Add Potato Sack</button>
@@ -113,14 +113,18 @@ const UserPageWatchlist = () => {
                     </form>
                 </div>}
                 <div className='flex flex-col gap-4 m-4'>
-                    {watchlist &&
-                    <Watchlist 
-                    watchlist={watchlist}
-                    userId={userId}
-                    onSubmitHandler={handleEdit}
-                    onDeleteHandler={handleDelete}
-                    onMovieDeleteHandler={handleMovieDelete}
-                    setDataChange={setDataChange}/>}
+                    {watchlist && watchlist.map((list, idx) => {
+                        return (
+                            <Watchlist 
+                            key={idx}
+                            list={list}
+                            userId={userId}
+                            onSubmitHandler={handleEdit}
+                            onDeleteHandler={handleDelete}
+                            onMovieDeleteHandler={handleMovieDelete}
+                            setDataChange={setDataChange}/>
+                        )
+                    })}
                 </div>
             </div> :
             <h1>Not authorized</h1>

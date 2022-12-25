@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import LoginForm from './components/LoginForm';
 import NavBar from './components/NavBar';
 import RegistrationForm from './components/RegistrationForm';
@@ -16,8 +16,7 @@ function App() {
   const [ searchParam, setSearchParam ] = useState("");
 
   return (
-    <div className=" font-bold">
-      <BrowserRouter>
+    <div className="relative h-full font-bold">
         <NavBar  
             movieTitle={movieTitle}
             setMovieTitle={setMovieTitle}
@@ -39,7 +38,6 @@ function App() {
             <Route element={<UserPageAccount/>} path="/rotten_potatoes/user/account"/>
           </Routes>
           <Footer/>
-      </BrowserRouter>
     </div>
   )
 }

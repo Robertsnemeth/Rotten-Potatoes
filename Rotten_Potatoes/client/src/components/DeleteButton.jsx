@@ -30,7 +30,7 @@ const DeleteButton = () => {
     };
 
   return (
-    <button onClick={() => {handleDelete()}} className="border border-red-500 rounded p-1 text-red-500 hover:text-white hover:bg-red-500 hover:border-white">Delete Account</button>
+    <button onClick={() => {handleDelete()}} className="w-72 border border-red-500 rounded p-1 text-red-500 hover:text-white hover:bg-red-500 hover:border-white">Delete Account</button>
   )
 }
 

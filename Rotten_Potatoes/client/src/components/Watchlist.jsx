@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { AiOutlineEdit, AiOutlineCheckCircle } from 'react-icons/ai';
 import { RiDeleteBin6Line } from 'react-icons/ri';
+import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
 import Button from './Button';
 
 const Watchlist = ({
-    watchlist,
+    list,
     setDataChange,
     onSubmitHandler,
     onDeleteHandler
@@ -36,39 +37,46 @@ const Watchlist = ({
         setWatchlistTitle("");
     };
 
+    const handleSlideLeft = () => {
+        let slider = document.getElementById('slider' + list._id);
+        slider.scrollLeft = slider.scrollLeft - 500;
+    };
+
+    const handleSlideRight = () => {
+        let slider = document.getElementById('slider' + list._id);
+        slider.scrollLeft = slider.scrollLeft + 500;
+    };
+
   return (
-    <div className='w-[1000px]'>
-    <div className='flex flex-col gap-4 m-4'>
-        {watchlist && watchlist.map((list, index) => {
-            return (
-                <div key={index} className='border rounded flex flex-col gap-4 p-5'>
-                        <div className='flex items-center gap-2'>
-                            {isEditing && list._id === listId ? 
-                            <form onSubmit={handleSubmit} className='flex items-center relative'>
-                                <input type="text" onChange={handleTitle} value={watchlistTitle} className="uppercase text-2xl font-bold border rounded"/>
-                                <Button buttonText={<AiOutlineCheckCircle/>}/>
-                            </form>
-                            :
-                            <h1 className="uppercase text-2xl font-bold border-l-8 border-red-500 p-2">{list.title}</h1>
-                            }
-                            <AiOutlineEdit color="green" onClick={() => handleEdit(list.title, list._id)} className="cursor-pointer hover:border hover:border-green-500 hover:rounded"/>
-                            <RiDeleteBin6Line color="red" onClick={() => handleDelete(list._id)} className="cursor-pointer hover:border hover:border-red-500 hover:rounded"/>
+    <div className='relative w-[1000px]'>
+        <div className='border rounded flex flex-col relative gap-4 p-5 m-4 group'>
+            <div className='flex items-center gap-2'>
+                {isEditing && list._id === listId ? 
+                <form onSubmit={handleSubmit} className='flex items-center relative'>
+                    <input type="text" onChange={handleTitle} value={watchlistTitle} className="uppercase text-2xl font-bold border rounded"/>
+                    <Button buttonText={<AiOutlineCheckCircle/>}/>
+                </form>
+                :
+                <h1 className="uppercase text-2xl font-bold border-l-8 border-red-500 p-2">{list.title}</h1>
+                }
+                <AiOutlineEdit color="green" onClick={() => handleEdit(list.title, list._id)} className="cursor-pointer hover:border hover:border-green-500 hover:rounded"/>
+                {!isEditing && <RiDeleteBin6Line color="red" onClick={() => handleDelete(list._id)} className="cursor-pointer hover:border hover:border-red-500 hover:rounded"/>}
+            </div>
+            {list.movies.length > 3 && <MdChevronLeft onClick={handleSlideLeft} className="bg-white border border-red-500 rounded-full absolute opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block left-5" size={40} color="red"/>}                
+            <div id={'slider' + list._id} className=' h-full w-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative'>
+                {list.movies.map((currentMovie, index) => {
+                    return (
+                        <div className='inline-block text-center mx-10 w-[250px]' key={currentMovie._id}>
+                            <img src={currentMovie.movie.poster} alt="movie poster" className="h-[300px] w-[203px] hover:shadow-lg rounded" />
+                            <h1 className="text-xs">{currentMovie.movie.title}</h1>
                         </div>
-                            <div className=' grid grid-cols-4 gap-4 overflow-x-auto'>
-                                {list.movies.map((currentMovie, index) => {
-                                    return (
-                                        <div className='flex flex-col gap-1 text-center' key={currentMovie._id}>
-                                            <img src={currentMovie.movie.poster} alt="movie poster" className="h-[300px] w-[203px] hover:shadow-lg rounded" />
-                                            <h1 className="text-xs">{currentMovie.movie.title}</h1>
-                                        </div>
-                                    )
-                                })}
-                            </div>
-                </div>
-            )
-        })}
+                    )
+                })}
+            </div>
+            {list.movies.length > 3 && <MdChevronRight onClick={handleSlideRight} className="bg-white border border-red-500 rounded-full absolute opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block right-5" size={40} color="red"/>}
+        </div>
     </div>
-</div>  )
+  )
 }
 
 export default Watchlist
