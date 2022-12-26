@@ -3,6 +3,7 @@ import { AiOutlineEdit, AiOutlineCheckCircle } from 'react-icons/ai';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
 import Button from './Button';
+const IMDB_URL = "https://www.imdb.com/title/";
 
 const Watchlist = ({
     list,
@@ -66,8 +67,8 @@ const Watchlist = ({
             <div id={'slider' + list._id} className=' h-full w-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative'>
                 {list.movies.map((currentMovie, index) => {
                     return (
-                        <div className='inline-block text-center mx-10 w-[250px]' key={currentMovie._id}>
-                            <img src={currentMovie.movie.poster} alt="movie poster" className="h-[300px] w-[203px] hover:shadow-lg rounded" />
+                        <div className='inline-block text-center mx-10 w-[250px] cursor-pointer' key={currentMovie._id}>
+                            <a href={`${IMDB_URL}${currentMovie.movie.imdbID}`} target="_blank"><img src={currentMovie.movie.poster} alt="movie poster" className="h-[300px] w-[203px] hover:shadow-lg rounded" /></a>
                             <h1 className="text-xs">{currentMovie.movie.title}</h1>
                         </div>
                     )

@@ -50,7 +50,7 @@ const HomePage = ({
         console.log(res.data.movieWatchlist.movies, "MOVIES");
         const currentMovies = res.data.movieWatchlist.movies;
         axios.put(`${WATCHLIST_URL}${watchlistId}`,{
-          movies:[...currentMovies, {movie:{title: watchlistMovieTitle, poster: watchlistMoviePoster}}]
+          movies:[...currentMovies, {movie:{title: watchlistMovieTitle, poster: watchlistMoviePoster, imdbID: movieImdbId}}]
         })
           .then(res => console.log(res))
           .catch(err => console.log(err))
@@ -115,7 +115,10 @@ const HomePage = ({
     <div>
       {!searched && <h1 className="text-start ml-12  border-l-8 border-red-500 p-3 text-2xl font-bold">Featured Movies</h1>}
       {searched && <h1 className="text-start text-2xl ml-12 m-4">Searched for "{searchParam}"</h1>}
-      <h1 className="text-start ml-12 m-4">Total results: {totalResults}</h1>
+      <div className="flex justify-between items-center">
+        <h1 className="text-start ml-12 m-4">Total results: {totalResults}</h1>
+        <h1 className="mr-12">Page: {pageNumber}</h1>
+      </div>
       <hr />
       <div className="text-blue-600 hover:text-blue-800 text-center">
           {pageNumber!=1 && <button className="m-2 underline" onClick={() => handlePrevPage()}>Prev Page</button>}

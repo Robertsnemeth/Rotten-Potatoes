@@ -18,6 +18,9 @@ const MovieWatchlistSchema = new mongoose.Schema({
             },
             poster: {
                 type: String
+            },
+            imdbID: {
+                type: String
             }
         }
     }],

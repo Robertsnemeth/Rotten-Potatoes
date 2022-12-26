@@ -16,7 +16,7 @@ function App() {
   const [ searchParam, setSearchParam ] = useState("");
 
   return (
-    <div className="relative h-full font-bold">
+    <div className="relative h-full font-bold bg-white">
         <NavBar  
             movieTitle={movieTitle}
             setMovieTitle={setMovieTitle}
