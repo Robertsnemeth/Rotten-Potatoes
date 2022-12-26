@@ -40,12 +40,12 @@ const Watchlist = ({
 
     const handleSlideLeft = () => {
         let slider = document.getElementById('slider' + list._id);
-        slider.scrollLeft = slider.scrollLeft - 500;
+        slider.scrollLeft = slider.scrollLeft - 1000;
     };
 
     const handleSlideRight = () => {
         let slider = document.getElementById('slider' + list._id);
-        slider.scrollLeft = slider.scrollLeft + 500;
+        slider.scrollLeft = slider.scrollLeft + 1000;
     };
 
   return (
@@ -58,7 +58,7 @@ const Watchlist = ({
                     <Button buttonText={<AiOutlineCheckCircle/>}/>
                 </form>
                 :
-                <h1 className="uppercase text-2xl font-bold border-l-8 border-red-500 p-2">{list.title}</h1>
+                <h1 className="uppercase text-2xl font-bold border-l-8 border-red-500 rounded p-2">{list.title}</h1>
                 }
                 <AiOutlineEdit color="green" onClick={() => handleEdit(list.title, list._id)} className="cursor-pointer hover:border hover:border-green-500 hover:rounded"/>
                 {!isEditing && <RiDeleteBin6Line color="red" onClick={() => handleDelete(list._id)} className="cursor-pointer hover:border hover:border-red-500 hover:rounded"/>}

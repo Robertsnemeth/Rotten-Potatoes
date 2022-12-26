@@ -60,10 +60,10 @@ const RegistrationForm = () => {
     }
 
   return (
-    <div className='mb-44'>
+    <div className='h-full'>
         <div className='flex flex-col items-center'>
             <h1 className="text-2xl m-3">Register User</h1>
-        <form onSubmit={handleSubmit} className="w-[500px] border border-black p-4 flex flex-col">
+        <form onSubmit={handleSubmit} className="w-[500px] border rounded shadow p-4 flex flex-col">
             <div className='flex'>
                 <section className='m-4'>
                 <div className="flex flex-col gap-2">
@@ -101,7 +101,9 @@ const RegistrationForm = () => {
                 <button className="border border-black rounded p-2 m-2 bg-red-500 hover:bg-red-400 text-white">Register</button>
         </form>
     </div>
-    <Link to="/rotten_potatoes/login" className="underline">Back to Sign In</Link>
+    <div className='text-center'>
+        <Link to="/rotten_potatoes/login" className="underline">Back to Sign In</Link>
+    </div>
     </div>
   )
 }

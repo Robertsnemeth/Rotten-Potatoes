@@ -113,7 +113,7 @@ const HomePage = ({
     <div>
     {movies ? 
     <div>
-      {!searched && <h1 className="text-start ml-12  border-l-8 border-red-500 p-3 text-2xl font-bold">Featured Movies</h1>}
+      {!searched && <h1 className="text-start ml-12  border-l-8 border-red-500 rounded p-3 text-2xl font-bold">Featured Movies</h1>}
       {searched && <h1 className="text-start text-2xl ml-12 m-4">Searched for "{searchParam}"</h1>}
       <div className="flex justify-between items-center">
         <h1 className="text-start ml-12 m-4">Total results: {totalResults}</h1>
@@ -152,7 +152,7 @@ const HomePage = ({
               <div className='relative'>
                 <div className="flex">
                   {addIsClicked && movie.imdbID === movieImdbId && 
-                  <form onSubmit={handleSubmit} className="absolute border border-black bg-white flex gap-1 rounded items-center top-[-36px] left-[40px] w-[275px] z-10">
+                  <form onSubmit={handleSubmit} className="absolute border bg-white flex gap-1 rounded items-center top-[-36px] left-[40px] w-[275px] z-10">
                       <label htmlFor="watchlist" className="p-0">Watchlist:</label>
                       <select id="watchlist" onChange={handleId} className="border border-red-500 rounded">
                         <option>--</option>
