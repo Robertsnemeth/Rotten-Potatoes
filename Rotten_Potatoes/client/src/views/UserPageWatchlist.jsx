@@ -82,17 +82,17 @@ const UserPageWatchlist = () => {
                 setUserId(res.data.user._id)
                 console.log(userId, "useEffect userId");
                 axios.get(`http://localhost:8000/api/rotten_potatoes/movie_watchlist/${userId}`)
-                .then((res) => {
-                console.log(res.data.movieWatchlist, "reference get request");
-                setWatchlists(res.data.movieWatchlist);
-                })
-                .catch((err) => console.log(err));
+                    .then((res) => {
+                    console.log(res.data.movieWatchlist, "reference get request");
+                    setWatchlists(res.data.movieWatchlist);
+                    })
+                    .catch((err) => console.log(err));
                 })
             .catch(err => console.log(err))
     }, [watchlistTitle]);
 
   return (
-    <div>
+    <div className=''>
         {accessToken ? 
             <div className='flex flex-col w-9/12'>
                 <button className='self-center border border-green-500 rounded p-1 text-green-500 hover:text-white hover:bg-green-500 hover:border-white' onClick={handleAddMovie}>Add Potato Sack</button>
@@ -101,7 +101,7 @@ const UserPageWatchlist = () => {
                 {formVisable && 
                 <div className='absolute z-10 bg-gray-50 shadow-2xl left-[37%] top-[175px]'>
                 {formErrors.title && <p className="text-center text-red-500">{formErrors.title.message}</p>}
-                    <form onSubmit={handleSubmit} className="w-[500px] border border-black rounded p-4 flex flex-col">
+                    <form onSubmit={handleSubmit} className="w-[500px] border rounded p-4 flex flex-col">
                         <div className='flex'>
                             <section className='m-4'>
                                 <div className="flex flex-col gap-2">

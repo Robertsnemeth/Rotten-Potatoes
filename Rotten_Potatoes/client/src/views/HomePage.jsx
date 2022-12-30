@@ -19,7 +19,7 @@ const HomePage = ({
   const [ watchlistId, setWatchlistId ] = useState("");
   const [ watchlistMovieTitle, setWatchlistMovieTitle ] = useState("");
   const [ watchlistMoviePoster, setWatchlistMoviePoster ] = useState("");
-  const [ isLoading, setIsLoading ] = useState(false);
+  const [ isLoading, setIsLoading ] = useState(true);
   const [ addIsClicked, setAddIsClicked ] = useState(false);
   const [ movieImdbId, setMovieImdbId ] = useState("");
   const [ isAdded, setIsAdded ] = useState(false);
@@ -78,7 +78,8 @@ const HomePage = ({
       .then(res => {
         console.log(res, "movie api");
         setMovies(res.data.Search);
-        setTotalResults(res.data.totalResults)
+        setTotalResults(res.data.totalResults);
+        setIsLoading(false)
       })
       .catch(err => console.log(err));
 
@@ -107,8 +108,8 @@ const HomePage = ({
   return (
     <div>
       {isLoading ?
-      <div>
-        <h1>Loading...</h1>
+      <div className='h-screen'>
+        <h1 className='text-center text-4xl'>Loading...</h1>
       </div> :
     <div>
     {movies ? 
@@ -152,7 +153,7 @@ const HomePage = ({
               <div className='relative'>
                 <div className="flex">
                   {addIsClicked && movie.imdbID === movieImdbId && 
-                  <form onSubmit={handleSubmit} className="absolute border bg-white flex gap-1 rounded items-center top-[-36px] left-[40px] w-[275px] z-10">
+                  <form onSubmit={handleSubmit} className="absolute border bg-white flex gap-1 rounded items-center top-[-36px] left-[33px] w-[290px] z-10">
                       <label htmlFor="watchlist" className="p-0">Watchlist:</label>
                       <select id="watchlist" onChange={handleId} className="border border-red-500 rounded">
                         <option>--</option>

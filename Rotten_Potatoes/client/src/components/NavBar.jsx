@@ -60,7 +60,7 @@ const NavBar = ({
 }, []);
 
   return (
-    <nav className="bg-red-500 text-white grid grid-cols-3 p-2 mb-4 items-center">
+    <nav className="bg-red-500 text-white grid grid-cols-3 p-2 mb-4 items-center w-full">
       <div className='flex gap-4 cursor-pointer' onClick={handleHomeClick}>
         <img src="https://kid-time.net/wp/wp-content/uploads/2018/06/the-grossery-gang-moldy-veg-series-1-118-smashed-potato.png" alt="rotten potato" className='w-20' />
         <div >
