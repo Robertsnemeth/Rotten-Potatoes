@@ -6,6 +6,7 @@ const IMDB_URL = "https://www.imdb.com/title/";
 import notFound from '../assets/not_found.jpg';
 import { AiOutlinePlus } from 'react-icons/ai';
 import Button from '../components/Button';
+import AllUsersWatchlists from '../components/AllUsersWatchlists';
 
 const HomePage = ({
   movies,
@@ -173,6 +174,8 @@ const HomePage = ({
           </div>
           )
         })}</div> 
+        <hr />
+      {!searched && <AllUsersWatchlists/>}
     </div> 
     :
       <div className="flex flex-col gap-4">

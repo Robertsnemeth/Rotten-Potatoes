@@ -1,9 +1,8 @@
 const MovieWatchlist = require("../models/movie_watchlist.model");
-const User = require("../models/user.model");
 
 module.exports.findAllMovieWatchlists = (req, res) => {
-    MovieWatchlist.find()
-        .then(allMovieWatchlists => {res.json({movieWatchlists: allMovieWatchlists})})
+    MovieWatchlist.find().populate('user')
+        .then(allMovieWatchlists => {res.json({movieWatchlists: allMovieWatchlists}); console.log(allMovieWatchlists, "watchlists")})
         .catch(err => {res.json({message: "Something went wrong", error: err})})
 };
 

@@ -32,6 +32,13 @@ const UserPageWatchlist = () => {
         })
         .then(res => {
             console.log(res, "Watchlist Added");
+            const newWatchlistId = res.data.movieWatchlist._id;
+            const usersWatchlists = user.watchlists;
+            axios.put(`http://localhost:8000/api/rotten_potatoes/user/${userId}`, 
+                {watchlists:[ ...usersWatchlists, newWatchlistId ] }
+            )
+                .then(res => console.log(res, "watchlistId for User"))
+                .catch(err => console.log(err))
             setDataChange(Math.random());
             setFormVisable(!formVisable);
         })
@@ -56,7 +63,11 @@ const UserPageWatchlist = () => {
         const handleDelete = (id) => {
             axios.delete(`http://localhost:8000/api/rotten_potatoes/movie_watchlist/${id}`)
                 .then(res => {
-                    console.log(res);
+                    console.log(res, "deleted watchlist");
+                    const usersWatchlists = user.watchlists;
+                    const newWatchlists = usersWatchlists.filter((listId) => listId != id);
+                    axios.put(`http://localhost:8000/api/rotten_potatoes/user/${userId}`, 
+                    {watchlists: newWatchlists })
                     setDataChange(Math.random());
                 })
                 .catch(err => console.log(err))

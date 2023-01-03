@@ -9,9 +9,6 @@ const MovieWatchlistSchema = new mongoose.Schema({
         maxLength: [ 20, "Title cannot be more than 20 characters long"]
     },
     movies: [{
-        title: {
-            type: String,
-        },
         movie: {
             title: {
                 type: String
@@ -25,9 +22,9 @@ const MovieWatchlistSchema = new mongoose.Schema({
         }
     }],
     user: {
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     }
 }, {timestamps: true});
 
-module.exports = mongoose.model("MovieWatchlist", MovieWatchlistSchema);
+module.exports = mongoose.model("Watchlist", MovieWatchlistSchema);

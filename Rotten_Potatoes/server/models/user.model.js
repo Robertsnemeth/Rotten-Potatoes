@@ -31,8 +31,8 @@ const UserSchema = new mongoose.Schema( {
         uniqueCaseInsensitive: [true]
     },
     watchlists: [{
-            type: mongoose.Types.ObjectId,
-            ref: "MovieWatchlist"
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Watchlist"
     }],
     password: {
         type: String,

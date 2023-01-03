@@ -3,13 +3,10 @@ import { AiOutlineEdit, AiOutlineCheckCircle } from 'react-icons/ai';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
 import Button from './Button';
-import HappyPotato from './../assets/happypotato2.jpg';
-import RottenPotato from './../assets/favicon.ico';
 const IMDB_URL = "https://www.imdb.com/title/";
 
 const Watchlist = ({
     list,
-    setDataChange,
     onSubmitHandler,
     onDeleteHandler
 }) => {
@@ -72,10 +69,6 @@ const Watchlist = ({
                         <div className='inline-block text-center mx-10 w-[250px]' key={currentMovie._id}>
                             <a href={`${IMDB_URL}${currentMovie.movie.imdbID}`} target="_blank"><img src={currentMovie.movie.poster} alt="movie poster" className=" cursor-pointer h-[300px] w-[203px] hover:shadow-lg rounded" /></a>
                             <h1 className="text-xs">{currentMovie.movie.title}</h1>
-                            <div className='flex gap-1'>
-                                <img className="h-12" src={HappyPotato} alt="" />
-                                <img className="h-12" src={RottenPotato} alt="" />
-                            </div>
                         </div>
                     )
                 })}

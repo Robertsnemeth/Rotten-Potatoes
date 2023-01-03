@@ -36,13 +36,13 @@ module.exports.logoutUser = (req, res) => {
 };
 
 module.exports.findAllUsers = (req, res) => {
-    User.find()
+    User.find().populate('watchlists')
         .then(allUsers => {res.json({users: allUsers})})
         .catch(err => {res.json({message: "Something went wrong", error: err})})
 };
 
 module.exports.findAllWatchlistsByUser = (req, res) => {
-    User.find({_id: req.params.id}).populate("watchlists")
+    User.find({_id: req.params.id})
         .then(userWatchlists => {
             res.json(userWatchlists)
         })
@@ -50,7 +50,7 @@ module.exports.findAllWatchlistsByUser = (req, res) => {
 };
 
 module.exports.findSingleUser = (req, res) => {
-    User.findById(req.user.id)
+    User.findById(req.user.id).populate('watchlists')
         .then(singleUser => {res.status(200).json({user: singleUser})})
         .catch(err => {res.json({message: "Something went wrong", error: err})})
 };
