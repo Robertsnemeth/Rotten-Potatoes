@@ -54,7 +54,7 @@ const Watchlist = ({
     };
 
   return (
-    <div className='relative w-[1000px]'>
+    <div className='relative w-3/4'>
         <div className='border rounded shadow flex flex-col relative gap-4 p-5 m-4 group'>
             <div className='flex items-center gap-2'>
                 {isEditing && list._id === listId ? 
@@ -73,7 +73,7 @@ const Watchlist = ({
                 <div className="grid grid-cols-3">
                     {list.movies.map((currentMovie, index) => {
                         return(
-                            <div className='inline-block text-center mx-10 w-[250px]' key={currentMovie._id}>
+                            <div className='inline-block text-center mx-10 w-[250px] my-2' key={currentMovie._id}>
                                 <a href={`${IMDB_URL}${currentMovie.movie.imdbID}`} target="_blank">
                                     <img src={currentMovie.movie.poster} alt="movie poster" className=" cursor-pointer h-[300px] w-[203px] hover:shadow-lg rounded" />
                                 </a>
