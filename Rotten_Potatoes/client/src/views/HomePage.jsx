@@ -128,12 +128,12 @@ const HomePage = ({
         </div>
       <div className="grid grid-cols-5 m-6">{movies.map((movie, index) => {
         return (
-          <div key={index} className="m-2">
+          <div key={index} className="my-2">
             { movie.Poster === "N/A" ?
             <div className='relative'>
                 <div className="flex">
                   {addIsClicked && movie.imdbID === movieImdbId && 
-                  <form onSubmit={handleSubmit} className="absolute border border-black bg-white p-1 flex gap-1 rounded items-center top-[-44px] left-[44px] w-[270px] z-10">
+                  <form onSubmit={handleSubmit} className="absolute border border-black bg-white p-1 flex gap-1 rounded items-center top-[-36px] left-0 w-[270px] z-10">
                       <label htmlFor="watchlist" className="p-0">Watchlist:</label>
                       <select id="watchlist" onChange={handleId} className="border border-red-500 rounded">
                         <option>--</option>
@@ -147,14 +147,16 @@ const HomePage = ({
                   </form>}
                 </div>
                 <h1 className='absolute bottom-0 left-6'>{movie.Title}</h1>
-                {accessToken && <AiOutlinePlus size="30px" className="absolute right-[50px] top-2 bg-white rounded opacity-50 z-10 cursor-pointer hover:opacity-90" onClick={() => {handleAddMovie(movie.Title, movie.Poster, movie.imdbID)}}/>}
-                <a href={`${IMDB_URL}${movie.imdbID}`} target="_blank"><img src={notFound} alt="movie poster, not found" className="h-[400px] w-[270px] cursor-pointer hover:shadow-3xl rounded hover:grayscale"/></a>
+                {accessToken && <AiOutlinePlus size="30px" className="absolute right-[10px] top-2 bg-white rounded opacity-50 z-10 cursor-pointer hover:opacity-90" onClick={() => {handleAddMovie(movie.Title, movie.Poster, movie.imdbID)}}/>}
+                <a href={`${IMDB_URL}${movie.imdbID}`} target="_blank" className='m-0'>
+                  <img src={notFound} alt="movie poster, not found" className="h-[400px] w-[270px] cursor-pointer hover:shadow-3xl rounded hover:grayscale m-0"/>
+                </a>
             </div>
               :
               <div className='relative'>
                 <div className="flex">
                   {addIsClicked && movie.imdbID === movieImdbId && 
-                  <form onSubmit={handleSubmit} className="absolute border bg-white flex gap-1 rounded items-center top-[-36px] left-[33px] w-[290px] z-10">
+                  <form onSubmit={handleSubmit} className="absolute border bg-white flex gap-1 rounded items-center top-[-36px] left-0 w-[270px] z-10">
                       <label htmlFor="watchlist" className="p-0">Watchlist:</label>
                       <select id="watchlist" onChange={handleId} className="border border-red-500 rounded">
                         <option>--</option>
@@ -167,8 +169,10 @@ const HomePage = ({
                       <Button buttonText="Add"/>
                   </form>}
                 </div>
-                  {accessToken && <AiOutlinePlus size="30px" className="absolute right-[50px] top-[10px] bg-white rounded opacity-50 z-10 cursor-pointer hover:opacity-90 " onClick={() => {handleAddMovie(movie.Title, movie.Poster,  movie.imdbID)}}/>}
-                  <a href={`${IMDB_URL}${movie.imdbID}`} target="_blank"><img src={movie.Poster} alt="movie poster" className="h-[400px] w-[270px] cursor-pointer hover:shadow-3xl rounded hover:grayscale"/></a>
+                  {accessToken && <AiOutlinePlus size="30px" className="absolute right-[10px] top-[10px] bg-white rounded opacity-50 z-10 cursor-pointer hover:opacity-90 " onClick={() => {handleAddMovie(movie.Title, movie.Poster,  movie.imdbID)}}/>}
+                  <a href={`${IMDB_URL}${movie.imdbID}`} target="_blank">
+                    <img src={movie.Poster} alt="movie poster" className="h-[400px] w-[270px] cursor-pointer hover:shadow-3xl rounded hover:grayscale"/>
+                  </a>
               </div>
             }
           </div>

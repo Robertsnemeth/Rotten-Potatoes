@@ -103,14 +103,14 @@ const UserPageWatchlist = () => {
     }, [watchlistTitle]);
 
   return (
-    <div className=''>
+    <div className='relative'>
         {accessToken ? 
             <div className='flex flex-col w-9/12'>
                 <button className='self-center border border-green-500 rounded p-1 text-green-500 hover:text-white hover:bg-green-500 hover:border-white' onClick={handleAddMovie}>Add Potato Sack</button>
                 <h1 className="text-start ml-12  border-l-8 border-red-500 rounded p-3 text-2xl font-bold mb-5">Potato Sack's</h1>
                 <hr />
                 {formVisable && 
-                <div className='absolute z-10 bg-gray-50 shadow-2xl left-[37%] top-[175px]'>
+                <div className='absolute z-10 bg-gray-50 shadow-2xl left-[37%] top-10'>
                 {formErrors.title && <p className="text-center text-red-500">{formErrors.title.message}</p>}
                     <form onSubmit={handleSubmit} className="w-[500px] border rounded p-4 flex flex-col">
                         <div className='flex'>

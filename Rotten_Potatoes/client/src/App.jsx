@@ -7,11 +7,12 @@ import UserPageWatchlist from './views/UserPageWatchlist';
 import HomePage from './views/HomePage';
 import UserPageAccount from './views/UserPageAccount';
 import Footer from './components/Footer';
+import randomWords from 'random-words';
 
 function App() {
 
   const [ movies, setMovies ] = useState([]);
-  const [ movieTitle, setMovieTitle ] = useState("Harry Potter");
+  const [ movieTitle, setMovieTitle ] = useState(randomWords);
   const [ searched, setSearched ] = useState(false);
   const [ searchParam, setSearchParam ] = useState("");
 
