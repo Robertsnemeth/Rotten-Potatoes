@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 import { TbChevronUp, TbChevronDown } from 'react-icons/tb';
+import { Transition } from '@tailwindui/react';
 const IMDB_URL = "https://www.imdb.com/title/";
 
 const AllUsersWatchlists = () => {
@@ -41,38 +42,48 @@ const AllUsersWatchlists = () => {
         <h1 className="uppercase text-2xl font-bold border-l-8 border-red-500 rounded p-2 ml-12">Users Watchlists</h1>
         {allUsers.map((user, index) => {
             return( 
-                <div className='relative w-[1000px] border rounded shadow p-5' key={user._id}>
-                    <div className='flex justify-between'>
-                        <h1 className="text-2xl border-l-8 border-red-500 rounded p-2">{user.userName}</h1>
-                        {isViewing ? <><TbChevronDown onClick={() => handleViewWatchlist(user._id)} color="red" size="40" className="m-0 bg-white hover:border hover:border-red-500 rounded-full  opacity-50 hover:opacity-100 cursor-pointer"/></> : <><TbChevronUp onClick={() => handleViewWatchlist(user._id)} color="red" size="40" className="m-0 bg-white hover:border hover:border-red-500 rounded-full opacity-50 hover:opacity-100 cursor-pointer"/></>}
+                    user._id !== userId && <div className='relative w-[1000px] border rounded shadow p-5' key={user._id}>
+                        <div className='flex justify-between'>
+                            <h1 className="text-2xl border-l-8 border-red-500 rounded p-2">{user.userName}</h1>
+                            {isViewing ? <><TbChevronDown onClick={() => handleViewWatchlist(user._id)} color="red" size="40" className="m-0 bg-white hover:border hover:border-red-500 rounded-full  opacity-50 hover:opacity-100 cursor-pointer"/></> : <><TbChevronUp onClick={() => handleViewWatchlist(user._id)} color="red" size="40" className="m-0 bg-white hover:border hover:border-red-500 rounded-full opacity-50 hover:opacity-100 cursor-pointer"/></>}
+                        </div>
+                        {user.watchlists.map((list, index) => {
+                            return (
+                                <Transition
+                                enter="transition-opacity transtion-ease-in duration-500"
+                                enterFrom="opacity-0"
+                                enterTo="opacity-100"
+                                leave="transition-opacity transition-ease-out duration-300"
+                                leaveFrom="opacity-100"
+                                leaveTo="opacity-0"
+                                show={!isViewing}
+                                >
+                                <div key={list._id}>
+                                    { viewingUserId === user._id && 
+                                    <div className=' flex flex-col relative gap-4 m-4 group '>
+                                        <div className='flex items-center gap-2'>
+                                            <h1 className="uppercase font-bold border-l-8 border-red-500 rounded p-2">{list.title}</h1>
+                                        </div>
+                                        {list.movies.length > 8 && <MdChevronLeft onClick={() => handleSlideLeft(list._id)} className="bg-white border border-red-500 rounded-full absolute opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block left-5" size={40} color="red"/>}                
+                                        <div id={'slider' + list._id} className='ease-in duration-300 h-full w-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative'>
+                                            {list.movies.map((currentMovie, index) => {
+                                                return (
+                                                    <div className='inline-block text-center' key={currentMovie._id}>
+                                                        <a href={`${IMDB_URL}${currentMovie.movie.imdbID}`} target="_blank">
+                                                            <img src={currentMovie.movie.poster} alt="movie poster" className=" cursor-pointer h-[150px] w-[102px] hover:shadow-lg rounded mx-1" />
+                                                        </a>
+                                                    </div>
+                                                )
+                                            })}
+                                        </div>
+                                        {list.movies.length > 8 && <MdChevronRight onClick={() => handleSlideRight(list._id)} className="bg-white border border-red-500 rounded-full absolute opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block right-5" size={40} color="red"/>}
+                                        <hr />
+                                    </div>}
+                                </div>
+                        </Transition>
+                            )
+                        })}
                     </div>
-                    {user.watchlists.map((list, index) => {
-                        return (
-                            <div key={list._id}>
-                                {!isViewing && viewingUserId === user._id && 
-                                <div className=' flex flex-col relative gap-4 m-4 group '>
-                                    <div className='flex items-center gap-2'>
-                                        <h1 className="uppercase font-bold border-l-8 border-red-500 rounded p-2">{list.title}</h1>
-                                    </div>
-                                    {list.movies.length > 8 && <MdChevronLeft onClick={() => handleSlideLeft(list._id)} className="bg-white border border-red-500 rounded-full absolute opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block left-5" size={40} color="red"/>}                
-                                    <div id={'slider' + list._id} className='ease-in duration-300 h-full w-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative'>
-                                        {list.movies.map((currentMovie, index) => {
-                                            return (
-                                                <div className='inline-block text-center' key={currentMovie._id}>
-                                                    <a href={`${IMDB_URL}${currentMovie.movie.imdbID}`} target="_blank">
-                                                        <img src={currentMovie.movie.poster} alt="movie poster" className=" cursor-pointer h-[150px] w-[102px] hover:shadow-lg rounded mx-1" />
-                                                    </a>
-                                                </div>
-                                            )
-                                        })}
-                                    </div>
-                                    {list.movies.length > 8 && <MdChevronRight onClick={() => handleSlideRight(list._id)} className="bg-white border border-red-500 rounded-full absolute opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block right-5" size={40} color="red"/>}
-                                    <hr />
-                                </div>}
-                            </div>
-                        )
-                    })}
-                </div>
             )
         })}
     </section>
