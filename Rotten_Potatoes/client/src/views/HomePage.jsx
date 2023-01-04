@@ -1,12 +1,15 @@
 import {useState, useEffect} from 'react';
 import axios from 'axios';
-const API_URL = "http://www.omdbapi.com?apikey=b79df8f9";
-const WATCHLIST_URL = "http://localhost:8000/api/rotten_potatoes/movie_watchlist/";
-const IMDB_URL = "https://www.imdb.com/title/";
 import notFound from '../assets/not_found.jpg';
 import { AiOutlinePlus } from 'react-icons/ai';
 import Button from '../components/Button';
 import AllUsersWatchlists from '../components/AllUsersWatchlists';
+
+const API_URL = import.meta.env.VITE_API_URL;
+const WATCHLIST_URL = import.meta.env.VITE_WATCHLIST_URL;
+const IMDB_URL = import.meta.env.VITE_IMDB_URL;
+const WATCHLIST_API = import.meta.env.VITE_WATCHLIST_API;
+const CURRENT_USER_API = import.meta.env.VITE_CURRENT_USER_API;
 
 const HomePage = ({
   movies,
@@ -85,7 +88,7 @@ const HomePage = ({
       .catch(err => console.log(err));
 
       axios.get(
-        "http://localhost:8000/api/rotten_potatoes/current_user", 
+        `${CURRENT_USER_API}`, 
         {headers:
             {'Authorization': `Bearer ${accessToken}`}
         },
@@ -97,7 +100,7 @@ const HomePage = ({
         })
         .catch(err => console.log(err));
 
-        axios.get(`http://localhost:8000/api/rotten_potatoes/movie_watchlist/${userId}`)
+        axios.get(`${WATCHLIST_API}${userId}`)
           .then((res) => {
             console.log(res.data.movieWatchlist, "reference get request");
             setWatchlists(res.data.movieWatchlist);
