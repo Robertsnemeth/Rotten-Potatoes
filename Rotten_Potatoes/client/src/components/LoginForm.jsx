@@ -37,7 +37,7 @@ const LoginForm = () => {
     }
 
     return (
-    <div className='h-full'>
+    <div className='h-screen'>
         <div className='flex flex-col items-center'>
             <h1 className="text-2xl m-3">Login User</h1>
         <form onSubmit={handleSubmit} className="w-[500px] border rounded shadow p-4 flex flex-col">
@@ -46,11 +46,11 @@ const LoginForm = () => {
                     <div className="flex flex-col gap-2">
                     {formErrors && <p className="text-center text-red-500">{formErrors}</p>}
                         <label htmlFor="email">Email: </label>
-                        <input className="border border-black rounded w-[400px]" type="text" onChange={handleEmail} value={email}/>
+                        <input id="email" className="border border-black rounded w-[400px]" type="text" onChange={handleEmail} value={email}/>
                     </div>
                     <div className="flex flex-col gap-2">
                         <label htmlFor="password">Password: </label>
-                        <input className="border border-black rounded" type="password" onChange={handlePassword} value={password}/>
+                        <input id="email" className="border border-black rounded" type="password" onChange={handlePassword} value={password}/>
                     </div>
                 </section>
             </div>

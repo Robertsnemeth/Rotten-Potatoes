@@ -42,10 +42,18 @@ const AllUsersWatchlists = () => {
         <h1 className="uppercase text-2xl font-bold border-l-8 border-red-500 rounded p-2 ml-12">Users Watchlists</h1>
         {allUsers.map((user, index) => {
             return( 
-                    user._id !== userId && <div className='relative w-[1000px] border rounded shadow p-5' key={user._id}>
+                    user._id !== userId && <div className='relative w-3/4 border rounded shadow p-5' key={user._id}>
                         <div className='flex justify-between'>
                             <h1 className="text-2xl border-l-8 border-red-500 rounded p-2">{user.userName}</h1>
-                            {isViewing ? <><TbChevronDown onClick={() => handleViewWatchlist(user._id)} color="red" size="40" className="m-0 bg-white hover:border hover:border-red-500 rounded-full  opacity-50 hover:opacity-100 cursor-pointer"/></> : <><TbChevronUp onClick={() => handleViewWatchlist(user._id)} color="red" size="40" className="m-0 bg-white hover:border hover:border-red-500 rounded-full opacity-50 hover:opacity-100 cursor-pointer"/></>}
+                            {isViewing ? 
+                            <>
+                                <TbChevronDown onClick={() => handleViewWatchlist(user._id)} color="red" size="40" className="m-0 bg-white hover:border hover:border-red-500 rounded-full  opacity-50 hover:opacity-100 cursor-pointer"/>
+                            </> 
+                            :
+                            user._id === viewingUserId && 
+                            <>
+                                <TbChevronUp onClick={() => handleViewWatchlist(user._id)} color="red" size="40" className="m-0 bg-white hover:border hover:border-red-500 rounded-full opacity-50 hover:opacity-100 cursor-pointer"/>
+                            </>}
                         </div>
                         {user.watchlists.map((list, index) => {
                             return (
@@ -57,8 +65,9 @@ const AllUsersWatchlists = () => {
                                 leaveFrom="opacity-100"
                                 leaveTo="opacity-0"
                                 show={!isViewing}
+                                key={list._id}
                                 >
-                                <div key={list._id}>
+                                <div>
                                     { viewingUserId === user._id && 
                                     <div className=' flex flex-col relative gap-4 m-4 group '>
                                         <div className='flex items-center gap-2'>

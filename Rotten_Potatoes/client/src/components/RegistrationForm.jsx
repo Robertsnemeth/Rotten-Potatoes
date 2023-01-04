@@ -60,7 +60,7 @@ const RegistrationForm = () => {
     }
 
   return (
-    <div className='h-full'>
+    <div className='h-screen'>
         <div className='flex flex-col items-center'>
             <h1 className="text-2xl m-3">Register User</h1>
         <form onSubmit={handleSubmit} className="w-[500px] border rounded shadow p-4 flex flex-col">

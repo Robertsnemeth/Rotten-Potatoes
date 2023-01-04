@@ -60,10 +60,10 @@ const NavBar = ({
 }, []);
 
   return (
-    <nav className="bg-red-500 text-white grid grid-cols-3 p-2 mb-4 items-center w-full">
-      <div className='flex gap-4 cursor-pointer' onClick={handleHomeClick}>
+    <nav className="bg-red-500 text-white grid grid-cols-3 p-1 mb-4 items-center w-full">
+      <div className='flex gap-4 cursor-pointer border-red-500 p-1 hover:rounded hover:bg-red-400 hover:p-1' onClick={handleHomeClick}>
         <img src="https://kid-time.net/wp/wp-content/uploads/2018/06/the-grossery-gang-moldy-veg-series-1-118-smashed-potato.png" alt="rotten potato" className='w-20' />
-        <div >
+        <div>
           <h1 className="text-[2rem] font-fredoka-one">Rotten</h1>
           <h1 className="text-[2rem] font-fredoka-one">Potatoes</h1>
         </div>
