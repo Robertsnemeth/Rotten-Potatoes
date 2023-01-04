@@ -73,7 +73,7 @@ const AllUsersWatchlists = () => {
                                         <div className='flex items-center gap-2'>
                                             <h1 className="uppercase font-bold border-l-8 border-red-500 rounded p-2">{list.title}</h1>
                                         </div>
-                                        {list.movies.length > 8 && <MdChevronLeft onClick={() => handleSlideLeft(list._id)} className="bg-white border border-red-500 rounded-full absolute opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block left-5" size={40} color="red"/>}                
+                                        {list.movies.length > 12 && <MdChevronLeft onClick={() => handleSlideLeft(list._id)} className="bg-white border border-red-500 rounded-full absolute opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block left-5" size={40} color="red"/>}                
                                         <div id={'slider' + list._id} className='ease-in duration-300 h-full w-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative'>
                                             {list.movies.map((currentMovie, index) => {
                                                 return (
@@ -85,7 +85,7 @@ const AllUsersWatchlists = () => {
                                                 )
                                             })}
                                         </div>
-                                        {list.movies.length > 8 && <MdChevronRight onClick={() => handleSlideRight(list._id)} className="bg-white border border-red-500 rounded-full absolute opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block right-5" size={40} color="red"/>}
+                                        {list.movies.length > 12 && <MdChevronRight onClick={() => handleSlideRight(list._id)} className="bg-white border border-red-500 rounded-full absolute opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block right-5" size={40} color="red"/>}
                                         <hr />
                                     </div>}
                                 </div>
