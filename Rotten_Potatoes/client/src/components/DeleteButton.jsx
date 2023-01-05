@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useNavigate} from 'react-router-dom';
 import axios from 'axios';
 
+const USER_API = import.meta.env.VITE_USER_API;
+
 const DeleteButton = () => {
 
     const [ userId, setUserId ] = useState(localStorage.getItem('userId'));
@@ -15,7 +17,7 @@ const DeleteButton = () => {
         console.log(userId)
 
         if(answer) {
-            axios.delete(`http://localhost:8000/api/rotten_potatoes/user/${userId}`)
+            axios.delete(`${USER_API}${userId}`)
             .then(res => {
                 console.log(res, "delete request");
                 localStorage.removeItem('accessToken');

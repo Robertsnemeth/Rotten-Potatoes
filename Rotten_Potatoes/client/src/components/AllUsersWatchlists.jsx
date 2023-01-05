@@ -3,7 +3,11 @@ import axios from 'axios';
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 import { TbChevronUp, TbChevronDown } from 'react-icons/tb';
 import { Transition } from '@tailwindui/react';
-const IMDB_URL = "https://www.imdb.com/title/";
+
+const IMDB_URL = import.meta.env.VITE_IMDB_URL;
+const USER_API = import.meta.env.VITE_USER_API;
+
+ 
 
 const AllUsersWatchlists = () => {
 
@@ -29,7 +33,7 @@ const AllUsersWatchlists = () => {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:8000/api/rotten_potatoes/user')
+        axios.get(`${USER_API}`)
             .then(res => {
                 console.log(res, "all users watchlists");
                 setAllUsers(res.data.users)

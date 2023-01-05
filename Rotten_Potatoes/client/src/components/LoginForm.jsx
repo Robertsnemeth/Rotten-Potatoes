@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 
+const USER_LOGIN_API = import.meta.env.VITE_USER_LOGIN_API;
+
 const LoginForm = () => {
     const [ email, setEmail ] = useState("");
     const [ password, setPassword ] = useState("");
@@ -20,7 +22,7 @@ const LoginForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:8000/api/rotten_potatoes/user/login', {
+        axios.post(`${USER_LOGIN_API}`, {
             email,
             password,})
         .then(res =>

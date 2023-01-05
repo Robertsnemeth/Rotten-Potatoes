@@ -4,7 +4,7 @@ import { RiDeleteBin6Line } from 'react-icons/ri';
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 import { BiGridAlt } from 'react-icons/bi';
 import Button from './Button';
-const IMDB_URL = "https://www.imdb.com/title/";
+const IMDB_URL = import.meta.env.VITE_IMDB_URL;
 
 const Watchlist = ({
     list,

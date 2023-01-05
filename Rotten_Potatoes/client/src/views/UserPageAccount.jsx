@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import Button from '../components/Button';
 import DeleteButton from '../components/DeleteButton';
-const USER_URL = "http://localhost:8000/api/rotten_potatoes/user/";
+const CURRENT_USER_API = import.meta.env.VITE_CURRENT_USER_API;
 
 const UserPageAccount = () => {
 
@@ -54,7 +54,7 @@ const UserPageAccount = () => {
 
     useEffect(() => {
         axios.get(
-            "http://localhost:8000/api/rotten_potatoes/current_user", 
+            `${CURRENT_USER_API}`, 
             {headers:
                 {'Authorization': `Bearer ${accessToken}`}
             },

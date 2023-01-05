@@ -2,7 +2,11 @@ import { useState, useEffect} from 'react';
 import axios from 'axios';
 import Watchlist from '../components/Watchlist';
 import Button from '../components/Button';
-const USER_URL = "http://localhost:8000/api/rotten_potatoes/user/"
+
+const CURRENT_USER_API = import.meta.env.VITE_CURRENT_USER_API;
+const USER_API = import.meta.env.VITE_USER_API;
+const WATCHLIST_URL = import.meta.env.VITE_WATCHLIST_URL;
+
 
 const UserPageWatchlist = () => {
 
@@ -26,7 +30,7 @@ const UserPageWatchlist = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(watchlist)
-        axios.post("http://localhost:8000/api/rotten_potatoes/movie_watchlist",{
+        axios.post(`${WATCHLIST_URL}`,{
             title: watchlistTitle,
             user: user
         })
@@ -34,7 +38,7 @@ const UserPageWatchlist = () => {
             console.log(res, "Watchlist Added");
             const newWatchlistId = res.data.movieWatchlist._id;
             const usersWatchlists = user.watchlists;
-            axios.put(`http://localhost:8000/api/rotten_potatoes/user/${userId}`, 
+                axios.put(`${USER_API}${userId}`, 
                 {watchlists:[ ...usersWatchlists, newWatchlistId ] }
             )
                 .then(res => console.log(res, "watchlistId for User"))
@@ -51,7 +55,7 @@ const UserPageWatchlist = () => {
         }; 
 
         const handleEdit = (title, id) => {
-            axios.put(`http://localhost:8000/api/rotten_potatoes/movie_watchlist/${id}`,{title})
+            axios.put(`${WATCHLIST_URL}${id}`,{title})
             .then(res => {
                 console.log(res, "Watchlist Added");
                 setDataChange(Math.random());
@@ -61,12 +65,12 @@ const UserPageWatchlist = () => {
         }; 
 
         const handleDelete = (id) => {
-            axios.delete(`http://localhost:8000/api/rotten_potatoes/movie_watchlist/${id}`)
+            axios.delete(`${WATCHLIST_URL}${id}`)
                 .then(res => {
                     console.log(res, "deleted watchlist");
                     const usersWatchlists = user.watchlists;
                     const newWatchlists = usersWatchlists.filter((listId) => listId != id);
-                    axios.put(`http://localhost:8000/api/rotten_potatoes/user/${userId}`, 
+                    axios.put(`${USER_API}${userId}`, 
                     {watchlists: newWatchlists })
                     setDataChange(Math.random());
                 })
@@ -80,7 +84,7 @@ const UserPageWatchlist = () => {
     useEffect(() => {
         console.log(watchlist, "watchlist")
         axios.get(
-            "http://localhost:8000/api/rotten_potatoes/current_user", 
+            `${CURRENT_USER_API}`, 
             {headers:
                 {'Authorization': `Bearer ${accessToken}`}
             },
@@ -92,7 +96,7 @@ const UserPageWatchlist = () => {
                 localStorage.setItem('userId', res.data.user._id);
                 setUserId(res.data.user._id)
                 console.log(userId, "useEffect userId");
-                axios.get(`http://localhost:8000/api/rotten_potatoes/movie_watchlist/${userId}`)
+                axios.get(`${WATCHLIST_URL}${userId}`)
                     .then((res) => {
                     console.log(res.data.movieWatchlist, "reference get request");
                     setWatchlists(res.data.movieWatchlist);

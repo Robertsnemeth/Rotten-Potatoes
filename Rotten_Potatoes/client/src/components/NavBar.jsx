@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link} from 'react-router-dom';
 import { BiSearch } from 'react-icons/bi';
-
 import axios from 'axios';
+
+const CURRENT_USER_API = import.meta.env.VITE_CURRENT_USER_API;
 
 const NavBar = ({
   movieTitle,
@@ -45,7 +46,7 @@ const NavBar = ({
 
   useEffect(() => {
     axios.get(
-        "http://localhost:8000/api/rotten_potatoes/current_user", 
+        `${CURRENT_USER_API}`, 
         {headers:
             {'Authorization': `Bearer ${accessToken}`}
         },

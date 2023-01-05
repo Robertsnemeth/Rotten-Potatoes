@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 
+const USER_API = import.meta.env.VITE_USER_API;
 
 const RegistrationForm = () => {
 
@@ -38,7 +39,7 @@ const RegistrationForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:8000/api/rotten_potatoes/user', {
+        axios.post(`${USER_API}`, {
             userName,
             firstName,
             lastName,
