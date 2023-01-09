@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser');
 
 app.use(express.json(), express.urlencoded({extensions: true}));
 app.use(cookieParser());
-app.use(cors({credentials: true, origin: `${ORIGIN}`}));
+app.use(cors({credentials: true}));
 
 require("./routes/user.routes")(app);
 require("./routes/movie_watchlist.routes")(app);
