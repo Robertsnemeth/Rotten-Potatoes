@@ -76,7 +76,7 @@ const Watchlist = ({
                         return(
                             <div className='inline-block text-center mx-10 w-3/4 my-2' key={currentMovie._id}>
                                 <a href={`${IMDB_URL}${currentMovie.movie.imdbID}`} target="_blank">
-                                    <img src={currentMovie.movie.poster} alt="movie poster" className=" cursor-pointer h-[300px] w-[203px] hover:shadow-lg rounded" />
+                                    <img src={currentMovie.movie.poster} alt="movie poster" className=" cursor-pointer h-[300px] w-[203px] hover:shadow-lg hover:scale-105 hover:transition-all rounded mb-1" />
                                 </a>
                                 <h1 className="text-xs">{currentMovie.movie.title}</h1>
                             </div>
@@ -91,7 +91,7 @@ const Watchlist = ({
                             return (
                                 <div className='inline-block text-center mx-10 w-[250px]' key={currentMovie._id}>
                                     <a href={`${IMDB_URL}${currentMovie.movie.imdbID}`} target="_blank">
-                                        <img src={currentMovie.movie.poster} alt="movie poster" className=" cursor-pointer h-[300px] w-[203px] hover:shadow-lg rounded" />
+                                        <img src={currentMovie.movie.poster} alt="movie poster" className=" cursor-pointer h-[300px] w-[203px] hover:shadow-lg rounded hover:scale-105 hover:transition-all my-2" />
                                     </a>
                                     <h1 className="text-xs">{currentMovie.movie.title}</h1>
                                 </div>

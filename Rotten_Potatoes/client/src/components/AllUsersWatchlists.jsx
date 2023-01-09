@@ -83,7 +83,7 @@ const AllUsersWatchlists = () => {
                                                 return (
                                                     <div className='inline-block text-center' key={currentMovie._id}>
                                                         <a href={`${IMDB_URL}${currentMovie.movie.imdbID}`} target="_blank">
-                                                            <img src={currentMovie.movie.poster} alt="movie poster" className=" cursor-pointer h-[150px] w-[102px] hover:shadow-lg rounded mx-1" />
+                                                            <img src={currentMovie.movie.poster} alt="movie poster" className=" cursor-pointer h-[150px] w-[102px] hover:shadow-lg hover:scale-105 hover:transition-all rounded mx-1 my-2" />
                                                         </a>
                                                     </div>
                                                 )
