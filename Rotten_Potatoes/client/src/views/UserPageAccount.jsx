@@ -45,7 +45,7 @@ const UserPageAccount = () => {
             })
             .then(res => {
                 console.log(res);
-                window.location.reload(false);
+                setDataChange(Math.random());
             })
             .catch(err => {
                 console.log(err);
