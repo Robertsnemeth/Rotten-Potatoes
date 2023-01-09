@@ -35,7 +35,6 @@ const Watchlist = ({
     const handleSubmit = (e) => {
         e.preventDefault();
         onSubmitHandler(watchlistTitle, listId);
-        window.location.reload(false);
         setWatchlistTitle("");
     };
 
