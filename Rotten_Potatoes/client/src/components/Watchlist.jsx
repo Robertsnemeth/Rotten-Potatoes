@@ -9,7 +9,8 @@ const IMDB_URL = import.meta.env.VITE_IMDB_URL;
 const Watchlist = ({
     list,
     onSubmitHandler,
-    onDeleteHandler
+    onDeleteHandler,
+    setDataChange
 }) => {
 
     const [ isEditing, setIsEditing ] = useState(false);
@@ -29,13 +30,14 @@ const Watchlist = ({
 
     const handleDelete = (id) => {
         onDeleteHandler(id);
-        window.location.reload(false);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         onSubmitHandler(watchlistTitle, listId);
+        setDataChange(Math.random());
         setWatchlistTitle("");
+        setIsEditing(false);
     };
 
     const handleSlideLeft = () => {

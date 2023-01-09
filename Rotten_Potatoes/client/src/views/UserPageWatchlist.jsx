@@ -77,10 +77,6 @@ const UserPageWatchlist = () => {
                 .catch(err => console.log(err))
         };
 
-        const handleMovieDelete = (title) => {
-
-        }
-
     useEffect(() => {
         console.log(watchlist, "watchlist")
         axios.get(
@@ -104,7 +100,7 @@ const UserPageWatchlist = () => {
                     .catch((err) => console.log(err));
                 })
             .catch(err => console.log(err))
-    }, [watchlistTitle]);
+    }, [dataChange]);
 
   return (
     <div className='relative'>
@@ -134,11 +130,10 @@ const UserPageWatchlist = () => {
                             <Watchlist 
                             key={idx}
                             list={list}
-                            userId={userId}
                             onSubmitHandler={handleEdit}
                             onDeleteHandler={handleDelete}
-                            onMovieDeleteHandler={handleMovieDelete}
-                            setDataChange={setDataChange}/>
+                            setDataChange={setDataChange}
+                            />
                         )
                     })}
                 </div>
