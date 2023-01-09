@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
 import Button from '../components/Button';
 import DeleteButton from '../components/DeleteButton';
 
 const CURRENT_USER_API = import.meta.env.VITE_CURRENT_USER_API;
 const USER_API = import.meta.env.VITE_USER_API;
 
-const UserPageAccount = () => {
+const UserPageAccount = ({
+    dataChange,
+    setDataChange
+}) => {
 
-    const [ dataChange, setDataChange ] = useState("");
     const [ user, setUser ] = useState({});
     const [ userName, setUserName ] = useState("");
     const [ firstName, setFirstName ] = useState("");
@@ -19,8 +20,6 @@ const UserPageAccount = () => {
 
     const accessToken = localStorage.getItem('accessToken');
     const userId = localStorage.getItem('userId');
-
-    const navigate = useNavigate();
 
     const handleUserName = (e) => {
         setUserName(e.target.value)
@@ -46,6 +45,7 @@ const UserPageAccount = () => {
             .then(res => {
                 console.log(res);
                 setDataChange(Math.random());
+                window.location.reload(false);
             })
             .catch(err => {
                 console.log(err);

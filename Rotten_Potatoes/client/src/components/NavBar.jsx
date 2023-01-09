@@ -9,7 +9,8 @@ const NavBar = ({
   movieTitle,
   setMovieTitle,
   setSearched,
-  setSearchParam
+  setSearchParam,
+  dataChange
 }) => {
 
   const [ title, setTitle ] = useState("");
@@ -58,7 +59,7 @@ const NavBar = ({
             setUserId(localStorage.setItem('userId', res.data.user._id));
         })
         .catch(err => console.log(err))
-}, []);
+}, [dataChange]);
 
   return (
     <nav className="bg-red-500 text-white grid grid-cols-3 p-1 mb-4 items-center w-full">

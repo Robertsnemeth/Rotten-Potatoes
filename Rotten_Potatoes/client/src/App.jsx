@@ -15,6 +15,7 @@ function App() {
   const [ movieTitle, setMovieTitle ] = useState(randomWords);
   const [ searched, setSearched ] = useState(false);
   const [ searchParam, setSearchParam ] = useState("");
+  const [ dataChange, setDataChange ] = useState("");
 
   return (
     <div className="relative h-full w-full font-bold bg-white">
@@ -22,7 +23,8 @@ function App() {
             movieTitle={movieTitle}
             setMovieTitle={setMovieTitle}
             setSearched={setSearched}
-            setSearchParam={setSearchParam}/>
+            setSearchParam={setSearchParam}
+            dataChange={setDataChange}/>
           <Routes>
             <Route element={<Navigate to="/rotten_potatoes/home_page"/>} path="/"/>
             <Route element={<HomePage
@@ -36,7 +38,10 @@ function App() {
             <Route element={<LoginForm/>} path="/rotten_potatoes/login"/>
             <Route element={<RegistrationForm/>} path="/rotten_potatoes/registration"/>
             <Route element={<UserPageWatchlist/>} path="/rotten_potatoes/user/watchlist"/>
-            <Route element={<UserPageAccount/>} path="/rotten_potatoes/user/account"/>
+            <Route element={<UserPageAccount 
+              dataChange={dataChange}
+              setDataChange={setDataChange}/>} 
+              path="/rotten_potatoes/user/account"/>
           </Routes>
           <Footer/>
     </div>
