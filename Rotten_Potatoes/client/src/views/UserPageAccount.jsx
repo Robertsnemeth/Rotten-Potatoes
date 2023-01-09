@@ -3,7 +3,9 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import Button from '../components/Button';
 import DeleteButton from '../components/DeleteButton';
+
 const CURRENT_USER_API = import.meta.env.VITE_CURRENT_USER_API;
+const USER_API = import.meta.env.VITE_USER_API;
 
 const UserPageAccount = () => {
 
@@ -35,7 +37,7 @@ const UserPageAccount = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.put(`${USER_URL}${userId}`,{
+        axios.put(`${USER_API}${userId}`,{
             userName,
             firstName,
             lastName,
