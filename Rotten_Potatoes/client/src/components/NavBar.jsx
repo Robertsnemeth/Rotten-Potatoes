@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useNavigate, Link} from 'react-router-dom';
 import { BiSearch } from 'react-icons/bi';
 import axios from 'axios';
+import { UserContext } from '../contexts/UserContext';
 
 const CURRENT_USER_API = import.meta.env.VITE_CURRENT_USER_API;
 
@@ -15,7 +16,7 @@ const NavBar = ({
 
   const [ title, setTitle ] = useState("");
   const [ accessToken, setAccessToken ] = useState(localStorage.getItem('accessToken'));
-  const [ user, setUser ] = useState({});
+  const { user, setUser } = useContext(UserContext);
   const [ userId, setUserId] = useState(localStorage.getItem('userId'));
 
   const navigate = useNavigate();

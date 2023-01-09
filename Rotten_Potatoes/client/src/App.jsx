@@ -8,6 +8,7 @@ import HomePage from './views/HomePage';
 import UserPageAccount from './views/UserPageAccount';
 import Footer from './components/Footer';
 import randomWords from 'random-words';
+import { UserContext } from './contexts/UserContext';
 
 function App() {
 
@@ -16,9 +17,11 @@ function App() {
   const [ searched, setSearched ] = useState(false);
   const [ searchParam, setSearchParam ] = useState("");
   const [ dataChange, setDataChange ] = useState("");
+  const [ user, setUser ] = useState({});
 
   return (
     <div className="relative h-full w-full font-bold bg-white">
+      <UserContext.Provider value={{user, setUser}}>
         <NavBar  
             movieTitle={movieTitle}
             setMovieTitle={setMovieTitle}
@@ -44,6 +47,7 @@ function App() {
               path="/rotten_potatoes/user/account"/>
           </Routes>
           <Footer/>
+      </UserContext.Provider>
     </div>
   )
 }

@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import Button from '../components/Button';
 import DeleteButton from '../components/DeleteButton';
+import { UserContext } from '../contexts/UserContext';
 
 const CURRENT_USER_API = import.meta.env.VITE_CURRENT_USER_API;
 const USER_API = import.meta.env.VITE_USER_API;
@@ -11,7 +12,7 @@ const UserPageAccount = ({
     setDataChange
 }) => {
 
-    const [ user, setUser ] = useState({});
+    const { user } = useContext(UserContext);
     const [ userName, setUserName ] = useState("");
     const [ firstName, setFirstName ] = useState("");
     const [ lastName, setLastName ] = useState("");
@@ -64,7 +65,6 @@ const UserPageAccount = ({
         )
             .then((res) => {
                 // console.log(res);
-                setUser(res.data.user);
                 setUserName(res.data.user.userName);
                 setFirstName(res.data.user.firstName);
                 setLastName(res.data.user.lastName);
