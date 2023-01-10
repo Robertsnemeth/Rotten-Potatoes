@@ -64,18 +64,18 @@ const RegistrationForm = () => {
     <div className='h-screen'>
         <div className='flex flex-col items-center'>
             <h1 className="text-2xl m-3">Register User</h1>
-        <form onSubmit={handleSubmit} className="w-[500px] border rounded shadow p-4 flex flex-col">
+        <form onSubmit={handleSubmit} className="w-full md:w-1/2 2xl:w-1/4 border rounded shadow p-4 flex flex-col items-center">
             <div className='flex'>
                 <section className='m-4'>
                 <div className="flex flex-col gap-2">
                     {formErrors.userName && <p className="text-center text-red-500">{formErrors.userName.message}</p>}
                         <label htmlFor="username">Username: </label>
-                        <input id="username" className="border border-black rounded w-[400px]" type="text" onChange={handleUserName} value={userName}/>
+                        <input id="username" className="border border-black rounded md:w-[300px] lg:w-[400px]" type="text" onChange={handleUserName} value={userName}/>
                     </div>
                     <div className="flex flex-col gap-2">
                     {formErrors.firstName && <p className="text-center text-red-500">{formErrors.firstName.message}</p>}
                         <label htmlFor="firstName">First Name: </label>
-                        <input id="firstName" className="border border-black rounded w-[400px]" type="text" onChange={handleFirstName} value={firstName}/>
+                        <input id="firstName" className="border border-black rounded " type="text" onChange={handleFirstName} value={firstName}/>
                     </div>
                     <div className="flex flex-col gap-2">
                     {formErrors.lastName && <p className="text-center text-red-500">{formErrors.lastName.message}</p>}
@@ -99,7 +99,7 @@ const RegistrationForm = () => {
                     </div>
                 </section>
             </div>
-                <button className="border border-black rounded p-2 m-2 bg-red-500 hover:bg-red-400 text-white">Register</button>
+                <button className="w-1/4 border border-black rounded p-2 m-2 bg-red-500 hover:bg-red-400 text-white">Register</button>
         </form>
     </div>
     <div className='text-center'>

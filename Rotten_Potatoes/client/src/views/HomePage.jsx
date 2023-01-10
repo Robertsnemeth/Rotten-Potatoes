@@ -129,7 +129,7 @@ const HomePage = ({
           {pageNumber!=1 && <button className="m-2 underline" onClick={() => handlePrevPage()}>Prev Page</button>}
           {movies.length ===10 && <button className="m-2 underline" onClick={() => handleNextPage()}>Next Page</button>}
         </div>
-      <div className="grid grid-cols-5 m-6">{movies.map((movie, index) => {
+      <div className="grid grid-cols-1 m-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">{movies.map((movie, index) => {
         return (
           <div key={index} className="my-2">
             { movie.Poster === "N/A" ?

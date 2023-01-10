@@ -79,18 +79,18 @@ const UserPageAccount = ({
         <div className='flex flex-col items-center'>
             <div className='flex flex-col items-center mb-5'>
                 <h1 className="text-2xl m-3 border-l-8 border-red-500 rounded pl-2">Update {user.userName}</h1>
-                <form onSubmit={handleSubmit} className="w-[500px] border rounded shadow p-4 flex flex-col">
+                <form onSubmit={handleSubmit} className="w-full border rounded shadow p-4 flex flex-col items-center">
                     <div className='flex'>
                         <section className='m-4'>
                         <div className="flex flex-col gap-2">
                             {formErrors.userName && <p className="text-center text-red-500">{formErrors.userName.message}</p>}
                                 <label htmlFor="username">Username: </label>
-                                <input id="username" className="border border-black rounded w-[400px] p-1" type="text" onChange={handleUserName} value={userName}/>
+                                <input id="username" className="border border-black rounded p-1" type="text" onChange={handleUserName} value={userName}/>
                             </div>
                             <div className="flex flex-col gap-2">
                             {formErrors.firstName && <p className="text-center text-red-500">{formErrors.firstName.message}</p>}
                                 <label htmlFor="firstName">First Name: </label>
-                                <input id="firstName" className="border border-black rounded w-[400px] p-1" type="text" onChange={handleFirstName} value={firstName}/>
+                                <input id="firstName" className="border border-black rounded p-1" type="text" onChange={handleFirstName} value={firstName}/>
                             </div>
                             <div className="flex flex-col gap-2">
                             {formErrors.lastName && <p className="text-center text-red-500">{formErrors.lastName.message}</p>}
