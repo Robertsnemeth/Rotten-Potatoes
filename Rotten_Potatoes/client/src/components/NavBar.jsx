@@ -9,7 +9,6 @@ import Sidebar from './Sidebar';
 const CURRENT_USER_API = import.meta.env.VITE_CURRENT_USER_API;
 
 const NavBar = ({
-  movieTitle,
   setMovieTitle,
   setSearched,
   setSearchParam,
@@ -87,24 +86,26 @@ const NavBar = ({
           </form>
           {accessToken ? 
           <div className='flex gap-6'>
-            <div className='flex gap-5'>
-              <form onSubmit={handleSubmit} className="lg:flex lg:items-center lg:gap-2 hidden">
-                {isSearchClicked && <input id="search" className="border rounded-full text-white w-96 p-1 bg-red-800" type="text" onChange={handleTitle} value={title} placeholder="Search movies..." />}
-                <button onClick><BiSearch size="25" className="lg:hidden"/></button>
-              </form>
               <RxHamburgerMenu size="40" className="xl:hidden" onClick={() => handleHamburgerMenuClick()}/>
-            </div>
-            {menuView && <Sidebar onLogoutHandler={handleLogout}/>}
+            {menuView && <Sidebar 
+              onLogoutHandler={handleLogout}
+              onSubmitHandler={handleSubmit}
+              currentTitle={title}
+              setCurrentTitle={setTitle}
+              setMenuView={setMenuView}
+              />}
             <Link to="/rotten_potatoes/user/account" className="hover:text-gray-200 hover:border hover:border-gray-200 hover:rounded p-1 border border-red-500 hidden xl:block">{user.userName}</Link>
             <Link to="/rotten_potatoes/user/watchlist" className="hover:text-gray-200 hover:border hover:border-gray-200 hover:rounded p-1 border border-red-500 hidden xl:block">My Watchlists</Link>
             <button onClick={handleLogout} className="hover:text-gray-200 hover:border hover:border-gray-200 hover:rounded p-1 border border-red-500 hidden xl:block">Logout</button> 
           </div> :
-          <div className='relative'>
-            <div className='flex gap-5'>
-              <button><BiSearch size="25" className="lg:hidden"/></button>
+          <div className='flex'>
               <RxHamburgerMenu size="40" className="xl:hidden" onClick={() => handleHamburgerMenuClick()}/>
-            </div>
-            {menuView && <Sidebar/>}
+            {menuView && 
+              <Sidebar
+                onSubmitHandler={handleSubmit}
+                setCurrentTitle={setTitle}
+                setMenuView={setMenuView}
+              />}
             <Link to="/rotten_potatoes/login" className="hover:text-gray-200 hover:border hover:border-gray-200 hover:rounded p-1 border border-red-500 hidden xl:block">Sign In/Sign Up</Link>
           </div>
           }
