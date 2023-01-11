@@ -125,9 +125,9 @@ const HomePage = ({
         <h1 className="mr-12">Page: {pageNumber}</h1>
       </div>
       <hr />
-      <div className="text-blue-600 hover:text-blue-800 text-center">
-          {pageNumber!=1 && <button className="m-2 underline" onClick={() => handlePrevPage()}>Prev Page</button>}
-          {movies.length ===10 && <button className="m-2 underline" onClick={() => handleNextPage()}>Next Page</button>}
+      <div className="text-white text-center">
+          {pageNumber!=1 && <button className="m-2 border p-2 rounded bg-red-500 hover:bg-red-400" onClick={() => handlePrevPage()}>Prev Page</button>}
+          {movies.length ===10 && <button className="m-2 border p-2 rounded bg-red-500 hover:bg-red-400" onClick={() => handleNextPage()}>Next Page</button>}
         </div>
       <div className="grid grid-cols-1 m-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">{movies.map((movie, index) => {
         return (
